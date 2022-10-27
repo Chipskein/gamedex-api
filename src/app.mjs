@@ -5,9 +5,8 @@ import {fileURLToPath} from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export function CreateAppInstace(database){
+export function CreateAppInstace(){
     const app = express();
-    //InitDatabase(database)
     app.use(express.urlencoded({extended:true}));
     app.use(express.json());
     app.get("/",(req,res)=>{
