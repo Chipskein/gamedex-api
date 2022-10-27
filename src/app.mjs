@@ -2,11 +2,13 @@ import express from 'express';
 import { HTTP_STATUS } from './consts/http-status.mjs';
 import path from 'path'
 import {fileURLToPath} from 'url';
+import {  InitDatabase } from './orm/sequelize.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export function CreateAppInstace(){
     const app = express();
+    InitDatabase()
     app.use(express.urlencoded({extended:true}));
     app.use(express.json());
     app.get("/",(req,res)=>{
