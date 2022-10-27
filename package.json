@@ -8,8 +8,8 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.mjs",
-    "dev": "nodemon ./src/index.mjs",
+    "start": "node -r dotenv/config  src/index.mjs dotenv_config_path=.env.prod",
+    "dev": "nodemon -r dotenv/config  src/index.mjs dotenv_config_path=.env.dev",
     "test": "vitest --reporter verbose"
   },
   "dependencies": {
