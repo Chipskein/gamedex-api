@@ -5,7 +5,7 @@ import  Stars  from '../entities/stars/model.mjs'
 import  Games  from '../entities/games/model.mjs'
 export function CreateSequelizeInstance(){
     const DATABASE_URL=process.env.DATABASE_URL || process.env.VITE_DATABASE_URL;
-    return  new Sequelize(DATABASE_URL);
+    return  new Sequelize(DATABASE_URL,{logging:false});
 }
 export function InitSequelizeModels(db){
     Users.init(db)
