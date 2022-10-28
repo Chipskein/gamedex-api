@@ -3,3 +3,5 @@ node_modules
 !.env.example
 yarn-error.log
 *.sqlite*
+tmp/*
+!tmp/.gitkeep

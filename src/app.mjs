@@ -6,11 +6,16 @@ import {  InitDatabase } from './orm/sequelize.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export async function CreateAppInstace(){
-    await InitDatabase()
+import usersRoutes from './entities/users/routes.mjs';
+
+export async function CreateAppInstace(database){
+    await InitDatabase(database)
     const app = express();
     app.use(express.urlencoded({extended:true}));
     app.use(express.json());
+
+    app.use("/users",usersRoutes)
+
     app.get("/",(req,res)=>{
         return res.sendFile(path.join(__dirname,'pages','index.html',))
     })

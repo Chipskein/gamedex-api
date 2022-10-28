@@ -23,9 +23,12 @@ export function RunAssociationFromDBModels(db){
 }
 
 
-export async function InitDatabase(){
-    const db=CreateSequelizeInstance()
+export async function InitDatabase(db){
     InitSequelizeModels(db)
     RunAssociationFromDBModels(db)
     await db.sync(/*{force:true}*/)
+}
+
+export async function cleanDatabase(db){
+    await db.sync({force:true})
 }
