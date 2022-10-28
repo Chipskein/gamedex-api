@@ -1,7 +1,7 @@
 
 import FormData from 'form-data';
 import axios from 'axios';
-const clientId=process.env.IMGUR_CLIENT_ID;
+const clientId=process.env.IMGUR_CLIENT_ID || process.env.VITE_IMGUR_CLIENT_ID;
 const imgurUploadURL='https://api.imgur.com/3/upload';
 export async function uploadFromStream(stream){
     const data = new FormData();

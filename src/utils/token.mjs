@@ -1,7 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { config } from 'dotenv';
-config();
-const Sign = process.env.JWT_SECRET;
+const Sign = process.env.JWT_SECRET || process.env.VITE_JWT_SECRET;
 const JWT_CONFIG={
     expiresIn:"7d"
 }
