@@ -4,7 +4,8 @@ export default class Users extends Model {
         const tableConfig={ 
             sequelize, 
             schema: 'public',
-            modelName: 'users'
+            modelName: 'users',
+            underscored:true
         }
         const tableDefinition={
             email:{
@@ -20,11 +21,23 @@ export default class Users extends Model {
                 type:DataTypes.STRING,
                 allowNull: false
             },
+            active:{
+                type:DataTypes.BOOLEAN,
+                defaultValue: true,
+            },
+            img:{
+                type:DataTypes.STRING,
+            },
+            is_data_master:{
+                type:DataTypes.BOOLEAN,
+                defaultValue: false,
+            },
         }
         super.init(tableDefinition,tableConfig)
     }
     
     static associate(models) {
-        
+        this.hasOne(models.games_collection,{foreignKey:'id_user',foreignKeyConstraint:true,})
+        this.hasOne(models.stars,{foreignKey:'id_user',foreignKeyConstraint:true,})
     }
 }

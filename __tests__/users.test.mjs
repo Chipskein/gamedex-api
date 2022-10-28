@@ -1,10 +1,19 @@
 import { config } from 'dotenv';
-import { test } from 'vitest'
-
-
-
-test('should ', () => {
+import {beforeAll, describe,expect,test} from 'vitest'
+import { CreateAppInstace } from '../src/app.mjs'
+import request  from 'supertest';
+const mock={app:null}
+beforeAll(async ()=>{
     config({path:'../.env.test'})
-    console.log(process.env.VITE_DATABASE_URL)
-    return 
-});
+    mock.app=await CreateAppInstace()
+})
+
+describe("Create User",()=>{
+    test("",async ()=>{
+        const response=await request(mock.app).post('/users')
+        expect(response.statusCode).toBe(404)
+    })    
+})
+
+
+
