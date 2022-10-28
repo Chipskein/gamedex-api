@@ -6,9 +6,9 @@ import {  InitDatabase } from './orm/sequelize.mjs';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export function CreateAppInstace(){
+export async function CreateAppInstace(){
+    await InitDatabase()
     const app = express();
-    InitDatabase()
     app.use(express.urlencoded({extended:true}));
     app.use(express.json());
     app.get("/",(req,res)=>{
