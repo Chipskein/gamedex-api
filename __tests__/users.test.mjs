@@ -23,7 +23,7 @@ const CreateUserTable=[
     [{name:'email ja cadastrado',email:"email@example.com",password:"123456"},HTTP_STATUS.BAD_REQUEST],
 ]
 describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCode)=>{
-    test('POST /users/',async ()=>{
+    test('POST /users/ with image',async ()=>{
         const res=await request(mock.app).post('/users')
         .field('name',body.name)
         .field('email',body.email)
@@ -36,6 +36,7 @@ describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCod
                 email: body.email,
             })
             expect(res.body.password).toBeUndefined()
+            expect(res.body.id).toBeDefined()
         }
     })
 })

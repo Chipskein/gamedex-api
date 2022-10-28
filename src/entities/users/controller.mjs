@@ -5,7 +5,7 @@ import Users from './model.mjs';
 import { hashPassword } from '../../utils/password.mjs';
 export async function CreateUser(req,res){
     const { file,body }=req 
-    const {path:serverPath } =file
+    const serverPath =file?.path
     try{
         const isInvalid=await validateUser(body)
         if(isInvalid){
@@ -21,13 +21,12 @@ export async function CreateUser(req,res){
             email,
             password:hashedPassword
         })
-        
         delete(user.password)
-        await rm(serverPath)
+        if(serverPath) await rm(serverPath)
         return res.status(HTTP_STATUS.OK).json(user)
     }
     catch(err){
-        await rm(serverPath)
+        if(serverPath) await rm(serverPath)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
