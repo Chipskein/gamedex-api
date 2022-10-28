@@ -23,12 +23,8 @@ const CreateUserTable=[
     [{name:'email ja cadastrado',email:"email@example.com",password:"123456"},HTTP_STATUS.BAD_REQUEST],
 ]
 describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCode)=>{
-    test('POST /users/ with image',async ()=>{
-        const res=await request(mock.app).post('/users')
-        .field('name',body.name)
-        .field('email',body.email)
-        .field('password',body.password)
-        .attach('img',`${__dirname}/assets/img_test.jpg`)
+    test('POST /users/ without image',async ()=>{
+        const res=await request(mock.app).post('/users').send(body)
         expect(res.statusCode).toBe(statusCode)
         if(res.statusCode==HTTP_STATUS.OK){
             expect(res.body).toContain({
@@ -40,6 +36,8 @@ describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCod
         }
     })
 })
+
+
 afterAll(async ()=>{
     await cleanDatabase(mock.database)
 })

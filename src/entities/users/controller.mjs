@@ -3,6 +3,7 @@ import { rm } from 'fs/promises'
 import { validateUser } from './validator.mjs';
 import Users from './model.mjs';
 import { hashPassword } from '../../utils/password.mjs';
+import { uploadImage } from '../../utils/image.mjs';
 export async function CreateUser(req,res){
     const { file,body }=req 
     const serverPath =file?.path
@@ -16,13 +17,16 @@ export async function CreateUser(req,res){
         }
         const {name,email,password} =body
         const hashedPassword=await hashPassword(password)
+        let img=null
+        if(file) img=await uploadImage(file)
+
         const {dataValues:user} = await Users.create({
             name,
             email,
-            password:hashedPassword
+            password:hashedPassword,
+            img
         })
         delete(user.password)
-        if(serverPath) await rm(serverPath)
         return res.status(HTTP_STATUS.OK).json(user)
     }
     catch(err){
