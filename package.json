@@ -9,6 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node -r dotenv/config  src/index.mjs dotenv_config_path=.env.prod",
+    "homo": "node -r dotenv/config  src/index.mjs dotenv_config_path=.env.dev",
     "dev": "nodemon -r dotenv/config  src/index.mjs dotenv_config_path=.env.dev",
     "test": "vitest --reporter verbose"
   },
