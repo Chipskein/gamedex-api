@@ -39,5 +39,6 @@ export default class Users extends Model {
     static associate(models) {
         this.hasOne(models.games_collection,{foreignKey:'id_user',foreignKeyConstraint:true,})
         this.hasOne(models.stars,{foreignKey:'id_user',foreignKeyConstraint:true,})
+        this.hasOne(models.games,{foreignKey:'id_user',foreignKeyConstraint:true})
     }
 }
