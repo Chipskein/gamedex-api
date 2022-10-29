@@ -18,8 +18,8 @@ export async function verifyToken(req,res,next){
                 msg:"Invalid Token Information"
             })
         }
-        const {dataValues:{email:userEmail,id:userId}}=user
-        if(userEmail!=email||id!=userId){
+        const {dataValues:{email:userEmail,id:userId,active:userActive}}=user
+        if(userEmail!=email||id!=userId||!userActive){
             return res.status(HTTP_STATUS.UNAUTHORIZED).json({
                 msg:"Invalid Token Information"
             })

@@ -80,6 +80,25 @@ describe.each(UpdateUserTable)('Body:%j token:%s expected Status Code:%d',(body,
         }
     })
 })
+const DeleteUserTable=[
+    [createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.OK],
+    [createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.UNAUTHORIZED],
+]
+describe.each(DeleteUserTable)('Token:%s expected Status Code:%d',(token,statusCode)=>{
+    test('DELETE /users/',async ()=>{
+        const res=await request(mock.app).delete('/users/').set('authorization',token);
+        expect(res.statusCode).toBe(statusCode)
+        if(res.statusCode==HTTP_STATUS.OK){
+            expect(res.body).toContain({
+                active:false
+            })
+            expect(res.body.password).toBeUndefined()
+            expect(res.body.id).toBeDefined()
+            expect(res.body.name).toBeDefined()
+            expect(res.body.email).toBeDefined()
+        }
+    })
+})
 
 
 

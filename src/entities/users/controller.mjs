@@ -95,3 +95,17 @@ export async function UpdateUser(req,res){
         return res.status(statusCode).json({ msg: err.message})
     }
 }
+export async function DeleteUser(req,res){
+    try{
+        const {id,email} =req.user
+        await Users.update({active:false},{where:{id}})
+        const {dataValues:user} = await Users.findByPk(id)
+        delete(user.password)
+        return res.status(HTTP_STATUS.OK).json(user)
+    }
+    catch(err){
+        if(serverPath) await rm(serverPath)
+        let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
+        return res.status(statusCode).json({ msg: err.message})
+    }
+}
