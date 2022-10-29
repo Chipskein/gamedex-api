@@ -16,13 +16,16 @@ beforeAll(async ()=>{
     mock.app=await CreateAppInstace(mock.database)
 })
 
-
 const CreateUserTable=[
     [{name:"afhnjashfjashfas",email:"emailinvalido",password:"senharandom"},HTTP_STATUS.BAD_REQUEST],
     [{name:'',email:"email@example.com",password:"senharandom"},HTTP_STATUS.BAD_REQUEST],
     [{name:'nome valido',email:"email@example.com",password:"senharandom"},HTTP_STATUS.OK],
     [{name:'nome valido',email:"222email@example.com",password:""},HTTP_STATUS.BAD_REQUEST],
     [{name:'email ja cadastrado',email:"email@example.com",password:"123456"},HTTP_STATUS.BAD_REQUEST],
+    [{name:'nome valido2',email:"email2@example.com",password:"senharandom"},HTTP_STATUS.OK],
+    [{name:'nome valido3',email:"email3@example.com",password:"senharandom"},HTTP_STATUS.OK],
+    [{name:'nome valido4',email:"email4@example.com",password:"senharandom"},HTTP_STATUS.OK],
+    [{name:'nome valido5',email:"email5@example.com",password:"senharandom"},HTTP_STATUS.OK],
 ]
 describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCode)=>{
     test('POST /users/ without image',async ()=>{
@@ -38,8 +41,6 @@ describe.each(CreateUserTable)('Body:%j expected Status Code:%d',(body,statusCod
         }
     })
 })
-
-
 const AuthUserTable=[
     [{email:"email@example.com",password:"senharandom"},HTTP_STATUS.OK],
     [{email:"email@example.com",password:"senhaerrada"},HTTP_STATUS.UNAUTHORIZED],
@@ -58,7 +59,6 @@ describe.each(AuthUserTable)('Body:%j expected Status Code:%d',(body,statusCode)
         }
     })
 })
-
 const UpdateUserTable=[
     [{name:"12"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.BAD_REQUEST],
     [{name:"123",password:""},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.BAD_REQUEST],
@@ -96,6 +96,31 @@ describe.each(DeleteUserTable)('Token:%s expected Status Code:%d',(token,statusC
             expect(res.body.id).toBeDefined()
             expect(res.body.name).toBeDefined()
             expect(res.body.email).toBeDefined()
+        }
+    })
+})
+const SearchUserTable=[
+    [{search:"test"},HTTP_STATUS.OK,0],
+    [{search:"nome"},HTTP_STATUS.OK,4],
+    [{search:"nome",limit:2},HTTP_STATUS.OK,4],
+    [{search:"nome",limit:2,offset:2},HTTP_STATUS.OK,4],
+    [{search:"naum tem"},HTTP_STATUS.OK,0],
+]
+describe.each(SearchUserTable)('Query:%j expected Status Code:%d',(query,statusCode,qt)=>{
+    test('GET /users/search',async ()=>{
+        const token=createJWT({id:2,email:'email2@example.com'})
+        const res=await request(mock.app).get('/users/search').query(query).set('authorization',token);
+        expect(res.statusCode).toBe(statusCode)
+        if(res.statusCode==HTTP_STATUS.OK){
+            const {limit,offset,count,users} = res.body
+            expect(users.length).toBeLessThanOrEqual(limit)
+            expect(count).toBe(qt)
+            users.map((user)=>{
+                expect(user.name).toBeDefined()
+                expect(user.email).toBeDefined()
+                expect(user.id).toBeDefined()
+                expect(user.password).toBeUndefined()
+            })
         }
     })
 })

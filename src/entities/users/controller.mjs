@@ -1,10 +1,12 @@
 import { HTTP_STATUS } from '../../consts/http-status.mjs';
 import { rm } from 'fs/promises'
+import{ Op } from "sequelize";
 import { validateUser,validateAuthUser,validateUpdateUser } from './validator.mjs';
 import Users from './model.mjs';
 import { hashPassword,verifyPassword } from '../../utils/password.mjs';
 import { uploadImage } from '../../utils/image.mjs';
 import { createJWT } from '../../utils/token.mjs';
+
 export async function CreateUser(req,res){
     const { file,body }=req 
     const serverPath =file?.path
@@ -105,6 +107,47 @@ export async function DeleteUser(req,res){
     }
     catch(err){
         if(serverPath) await rm(serverPath)
+        let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
+        return res.status(statusCode).json({ msg: err.message})
+    }
+}
+
+export async function GetUsers(req,res){
+    try{
+        const {id,email} =req.user
+        return res.status(HTTP_STATUS.OK).json({token:1})
+    }
+    catch(err){
+        let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
+        return res.status(statusCode).json({ msg: err.message})
+    }
+}
+export async function GetUser(req,res){
+    try{
+        const {id,email} =req.user
+        return res.status(HTTP_STATUS.OK).json({token:1})
+    }
+    catch(err){
+        let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
+        return res.status(statusCode).json({ msg: err.message})
+    }
+}
+export async function SearchUsers(req,res){
+    try{
+        let {search,limit,offset}=req.query;
+        if(!limit) limit=10;
+        if(!offset) offset=0;
+        limit=Number(limit)
+        offset=Number(offset)
+        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true,name:{[Op.like]:`%${search}%`}}})
+        const users=[];
+        rows.map(({dataValues:user})=>{
+            delete(user.password)
+            users.push(user)
+        });
+        return res.status(HTTP_STATUS.OK).json({count,limit,offset,users})
+    }
+    catch(err){
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
