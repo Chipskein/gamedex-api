@@ -7,6 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 import usersRoutes from './entities/users/routes.mjs';
+import gamesRoutes from './entities/games/routes.mjs';
 
 export async function CreateAppInstace(database){
     await InitDatabase(database)
@@ -15,6 +16,7 @@ export async function CreateAppInstace(database){
     app.use(express.json());
 
     app.use("/users",usersRoutes)
+    app.use("/games",gamesRoutes)
 
     app.get("/",(req,res)=>{
         return res.sendFile(path.join(__dirname,'pages','index.html',))
