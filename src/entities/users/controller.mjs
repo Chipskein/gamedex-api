@@ -1,7 +1,7 @@
 import { HTTP_STATUS } from '../../consts/http-status.mjs';
 import { rm } from 'fs/promises'
 import{ Op } from "sequelize";
-import { validateUser,validateAuthUser,validateUpdateUser } from './validator.mjs';
+import { validateUser,validateAuthUser,validateUpdateUser,validateGetUser,validateGetUsers,validateSearchUsers } from './validator.mjs';
 import Users from './model.mjs';
 import { hashPassword,verifyPassword } from '../../utils/password.mjs';
 import { uploadImage } from '../../utils/image.mjs';
@@ -111,11 +111,27 @@ export async function DeleteUser(req,res){
         return res.status(statusCode).json({ msg: err.message})
     }
 }
-
 export async function GetUsers(req,res){
     try{
-        const {id,email} =req.user
-        return res.status(HTTP_STATUS.OK).json({token:1})
+        const isInvalid=await validateGetUsers(req.query)
+        if(isInvalid){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:isInvalid.details[0].message
+            }
+        }
+        let {limit,offset}=req.query;
+        if(!limit) limit=10;
+        if(!offset) offset=0;
+        limit=Number(limit)
+        offset=Number(offset)
+        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true}})
+        const users=[];
+        rows.map(({dataValues:user})=>{
+            delete(user.password)
+            users.push(user)
+        });
+        return res.status(HTTP_STATUS.OK).json({count,limit,offset,users})
     }
     catch(err){
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
@@ -124,8 +140,17 @@ export async function GetUsers(req,res){
 }
 export async function GetUser(req,res){
     try{
-        const {id,email} =req.user
-        return res.status(HTTP_STATUS.OK).json({token:1})
+        const isInvalid=await validateGetUser(req.params)
+        if(isInvalid){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:isInvalid.details[0].message
+            }
+        }
+        const { id:searchId }=req.params
+        const { dataValues:user } = await Users.findOne({where:{id:searchId,active:true}})
+        delete(user.password)
+        return res.status(HTTP_STATUS.OK).json({user})
     }
     catch(err){
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
@@ -134,6 +159,13 @@ export async function GetUser(req,res){
 }
 export async function SearchUsers(req,res){
     try{
+        const isInvalid=await validateSearchUsers(req.query)
+        if(isInvalid){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:isInvalid.details[0].message
+            }
+        }
         let {search,limit,offset}=req.query;
         if(!limit) limit=10;
         if(!offset) offset=0;

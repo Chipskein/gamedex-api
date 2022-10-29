@@ -124,6 +124,25 @@ describe.each(SearchUserTable)('Query:%j expected Status Code:%d',(query,statusC
         }
     })
 })
+const GetUserTable=[
+    [1,HTTP_STATUS.BAD_REQUEST],
+    [2,HTTP_STATUS.OK],
+    [3,HTTP_STATUS.OK],
+    [4,HTTP_STATUS.OK],
+    [5,HTTP_STATUS.OK],
+]
+describe.each(GetUserTable)('UserId:%d expected Status Code:%d',(userId,statusCode)=>{
+    test(`GET /users/${userId}`,async ()=>{
+        const token=createJWT({id:2,email:'email2@example.com'})
+        const res=await request(mock.app).get(`/users/${userId}`).set('authorization',token);
+        expect(res.statusCode).toBe(statusCode)
+    })
+})
+test('GET /users/',async ()=>{
+    const token=createJWT({id:2,email:'email2@example.com'})
+    const res=await request(mock.app).get(`/users/`).set('authorization',token);
+    expect(res.statusCode).toBe(HTTP_STATUS.OK)
+})
 
 
 
