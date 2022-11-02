@@ -60,6 +60,33 @@ describe.each(CreateNewGame)('',async (body,token,statusCode)=>{
         }
     })
 })
+const GetGames=[
+    [{limit:10,offset:0},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',}),HTTP_STATUS.OK],
+    [{limit:10,offset:11},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',}),HTTP_STATUS.OK],
+    [{},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',}),HTTP_STATUS.OK],
+]
+describe.each(GetGames)('',async (query,token,statusCode)=>{
+    test('GET /games',async()=>{
+        const res=await request(mock.app).get('/games').query(query).set('authorization',token);
+        expect(res.statusCode).toBe(statusCode)
+        if(res.statusCode==HTTP_STATUS.OK){
+            if(query.limit&&query.offset){
+                expect(res.body).contain({
+                    limit:query.limit,
+                    offset:query.offset
+                })
+            }
+            expect(res.body.count).toBeGreaterThanOrEqual(0)
+            expect(res.body.games.length).toBeGreaterThanOrEqual(0)
+            res.body.games.map(game=>{
+                expect(game.name).toBeDefined()
+                expect(game.publisher).toBeDefined()
+                expect(game.id_user).toBeDefined()
+            })
+
+        }
+    })
+})
 
 
 
