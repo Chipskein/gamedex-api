@@ -11,7 +11,6 @@ import Games from '../src/entities/games/model.mjs';
 const mock={
     app:null,
     database:null,
-    user_master:null,
 }
 beforeAll(async ()=>{
     config({path:'../.env.test'})
@@ -24,7 +23,12 @@ beforeAll(async ()=>{
         password:'senhanaoencriptada',
         is_data_master:true    
     })
-    mock.user=user;    
+    const {dataValues:user2}=await Users.create({
+        name:"user-data-master",
+        email:'usertestNOT_data_master@gamedex.com',
+        password:'senhanaoencriptada',
+        is_data_master:false    
+    })
 
     for(let c=1;c<=50;c++){
         await Games.create({
@@ -37,11 +41,27 @@ beforeAll(async ()=>{
 })
 
 
-
-
-test('eaiman',async ()=>{
-    return
+const CreateNewGame=[
+    [{name:1,publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
+    [{},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',active:true}),HTTP_STATUS.FORBIDDEN],
+    [{name:'FIFA 15',publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.OK],
+    [{name:'FIFA 15',publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
+]
+describe.each(CreateNewGame)('',async (body,token,statusCode)=>{
+    test('POST /games',async()=>{
+        const res=await request(mock.app).post('/games').send(body).set('authorization',token);
+        expect(res.statusCode).toBe(statusCode)
+        if(res.statusCode==HTTP_STATUS.OK){
+            expect(res.body).contain({
+                name:body.name,
+                publisher:body.publisher,
+                id_user:1
+            })
+        }
+    })
 })
+
+
 
 
 
