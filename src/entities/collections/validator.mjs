@@ -1,9 +1,9 @@
-import Joi, { number } from "joi";
+import Joi from "joi";
 import { ValidImageMimeType } from "../../utils/image.mjs";
 
 
 const AddToCollectionSchema = Joi.object({
-    id_game:number().required()
+    id_game:Joi.number().required()
 });
 const EvidenceImageSchema = Joi.object({
     path:Joi.string().required(),
