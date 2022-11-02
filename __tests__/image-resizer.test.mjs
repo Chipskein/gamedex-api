@@ -5,6 +5,9 @@ import { resizeImage } from '../src/utils/image-resizer.mjs'
 import { ConvertBufferToBase64,VerifyIfIsBase64 } from '../src/utils/base64.mjs'
 const TestFilesPath=[
     `${__dirname}/assets/img_test.jpg`,
+    `${__dirname}/assets/img_test2.jpg`,
+    `${__dirname}/assets/img_test3.jpg`,
+    `${__dirname}/assets/img_test4.jpg`,
 ]
 describe.each(TestFilesPath)('Filepath: %s',(filepath)=>{
     test('Should Resize File',async ()=>{
