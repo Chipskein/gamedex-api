@@ -7,6 +7,7 @@ import { cleanDatabase, CreateSequelizeInstance } from '../src/orm/sequelize.mjs
 import { createJWT } from '../src/utils/token.mjs';
 import Users from '../src/entities/users/model.mjs';
 import Games from '../src/entities/games/model.mjs';
+import { VerifyIfIsBase64 } from '../src/utils/base64.mjs';
 
 const mock={
     app:null,
@@ -43,6 +44,8 @@ const MarkGameDex=[
     [{id_game:99999,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'should fail',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'null',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
+    [{id_game:2,evidence_img:`${__dirname}/assets/img_test2.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
+    [{id_game:4,evidence_img:`${__dirname}/assets/img_test3.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
 ]
 describe.each(MarkGameDex)('',async (body,token,statusCode)=>{
     test('POST /collection',async()=>{
@@ -53,6 +56,16 @@ describe.each(MarkGameDex)('',async (body,token,statusCode)=>{
             .set('authorization',token)
         ;
         expect(res.statusCode).toBe(statusCode)
+        if(res.statusCode==HTTP_STATUS.OK){
+            expect(res.body).contain({
+                id_game:body.id_game,
+                id_user:2
+            })
+            expect(res.body.evidence_img).toBeDefined()
+            const base64_data=res.body.evidence_img.split(',')[1]
+            const isInBase64Encode=VerifyIfIsBase64(base64_data)
+            expect(isInBase64Encode).toBeTruthy()
+        }
     })
 })
 

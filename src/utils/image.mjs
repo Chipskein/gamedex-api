@@ -30,5 +30,6 @@ export async function processEvidenceImage(file){
     const resizedBuffer=await resizeImage(buffer)
     const base64=ConvertBufferToBase64(resizedBuffer)
     const base64String=`data:${mimetype};base64,${base64}`
+    await rm(path)
     return base64String   
 }

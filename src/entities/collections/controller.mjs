@@ -2,11 +2,12 @@ import { HTTP_STATUS } from "../../consts/http-status.mjs"
 import { processEvidenceImage } from "../../utils/image.mjs"
 import Games from "../games/model.mjs"
 import Collections from "./model.mjs"
+import { rm } from 'fs/promises'
 import { validateAddToCollection, validateEvidenceImg } from "./validator.mjs"
 export async function AddToCollection(req,res){
+    const body=JSON.parse(JSON.stringify(req.body))
+    const file=req.file
     try{
-        const body=JSON.parse(JSON.stringify(req.body))
-        const file=req.file
         const InvalidBody=validateAddToCollection(body)
         if(InvalidBody){
             throw {
@@ -39,6 +40,7 @@ export async function AddToCollection(req,res){
         return res.status(HTTP_STATUS.OK).json(item_collection)
     }
     catch(err){
+        if(file) await rm(file.path)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
