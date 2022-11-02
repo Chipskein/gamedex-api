@@ -23,37 +23,36 @@ beforeAll(async ()=>{
         password:'senhanaoencriptada',
         is_data_master:true    
     })
-    const {dataValues:user2}=await Users.create({
-        name:"user-data-master",
+    await Users.create({
+        name:"normal-user",
         email:'usertestNOT_data_master@gamedex.com',
         password:'senhanaoencriptada',
         is_data_master:false    
     })
-
+    const games=[]
     for(let c=1;c<=50;c++){
-        await Games.create({
-            name:`games-test${c}`,
-            publisher:`publisher-test`,
-            id_user:user.id
-        })
+        games.push({name:`games-test${c}`,publisher:`publisher-test`,id_user:user.id})
     }
+    await Games.bulkCreate(games)
     
 })
 
 
 const MarkGameDex=[
     [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
+    [{id_game:99999,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
+    [{id_game:'should fail',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
+    [{id_game:'null',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
 ]
 describe.each(MarkGameDex)('',async (body,token,statusCode)=>{
     test('POST /collection',async()=>{
-        const res=await request(mock.app).post('/collection')
-        .attach('evidence_img',body.evidence_img)
-        .field('id_game',body.id_game)
-        .set('authorization',token);
+        const res=await request(mock.app)
+            .post('/collection')
+            .attach('evidence_img',body.evidence_img)
+            .field('id_game',body.id_game)
+            .set('authorization',token)
+        ;
         expect(res.statusCode).toBe(statusCode)
-        if(res.statusCode==HTTP_STATUS.OK){
-
-        }
     })
 })
 

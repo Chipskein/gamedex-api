@@ -23,20 +23,18 @@ beforeAll(async ()=>{
         password:'senhanaoencriptada',
         is_data_master:true    
     })
-    const {dataValues:user2}=await Users.create({
-        name:"user-data-master",
+    await Users.create({
+        name:"normal-user",
         email:'usertestNOT_data_master@gamedex.com',
         password:'senhanaoencriptada',
         is_data_master:false    
     })
 
+    const games=[]
     for(let c=1;c<=50;c++){
-        await Games.create({
-            name:`games-test${c}`,
-            publisher:`publisher-test`,
-            id_user:user.id
-        })
+        games.push({name:`games-test${c}`,publisher:`publisher-test`,id_user:user.id})
     }
+    await Games.bulkCreate(games)
     
 })
 

@@ -13,4 +13,13 @@ export async function uploadImage(file){
     await rm(file.path);
     return data?.link || null
 }
+export function ValidImageMimeType(mimetype){
+    const ValidMimetypes=[
+        'image/png',
+        'image/jpeg',
+        'image/jpg',
+        'image/gif',
+    ]
+    return ValidMimetypes.includes(mimetype)
+}
 
