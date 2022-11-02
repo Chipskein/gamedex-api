@@ -1,6 +1,8 @@
 import path from 'path';
 import multer from 'multer';
-import { rm } from 'fs/promises';
+import { resizeImage } from './image-resizer.mjs'
+import { ConvertBufferToBase64 } from './base64.mjs'
+import { readFile, rm } from 'fs/promises';
 import { createReadStream } from 'fs';
 import { uploadFromStream } from '../apis/imgur.mjs';
 const multer_config={
@@ -22,4 +24,11 @@ export function ValidImageMimeType(mimetype){
     ]
     return ValidMimetypes.includes(mimetype)
 }
-
+export async function processEvidenceImage(file){
+    const { path,mimetype } = file
+    const buffer=await readFile(path)
+    const resizedBuffer=await resizeImage(buffer)
+    const base64=ConvertBufferToBase64(resizedBuffer)
+    const base64String=`data:${mimetype};base64,${base64}`
+    return base64String   
+}

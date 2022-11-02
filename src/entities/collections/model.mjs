@@ -9,7 +9,7 @@ export default class Collections extends Model {
         }
         const tableDefinition={
             evidence_img:{
-                type:DataTypes.STRING,
+                type:DataTypes.TEXT,
                 allowNull: false
             },
         }
