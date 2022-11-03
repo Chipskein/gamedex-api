@@ -23,5 +23,10 @@
 ## games:
 * id,
 * name,
-* publisher
+* publisher,
+* id_user,
+* genre,
+* img,
+
+
 

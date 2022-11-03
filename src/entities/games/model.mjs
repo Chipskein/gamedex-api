@@ -17,6 +17,14 @@ export default class Games extends Model {
                 type:DataTypes.STRING,
                 allowNull: false
             },
+            img: {
+                type: DataTypes.STRING,
+                defaultValue:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkWXUdBns9goe8j_pgvBEFuS9PJnOYAQ_Ld_g78DymXA&s",
+            },
+            genre: {
+                type: DataTypes.STRING,
+                //allowNull: false
+            },
         }
         super.init(tableDefinition,tableConfig)
     }
