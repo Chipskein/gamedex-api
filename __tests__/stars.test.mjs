@@ -40,6 +40,14 @@ beforeAll(async ()=>{
         password:'senhanaoencriptada',
         is_data_master:false    
     })
+    
+    const {dataValues:user3}=await Users.create({
+        name:"normal-user3",
+        email:'usertest3@gamedex.com',
+        password:'senhanaoencriptada',
+        is_data_master:false    
+    })
+
     const games=[]
     for(let c=1;c<=50;c++){
         games.push({name:`games-test${c}`,publisher:`publisher-test`,id_user:userAdmin.id})
@@ -58,18 +66,32 @@ beforeAll(async ()=>{
             evidence_img,
             id_user:user1.id
         })
+        collection.push({
+            id_game:c,
+            evidence_img,
+            id_user:user2.id
+        })
     }
 
-    const col=await Collections.bulkCreate(collection)
+    await Collections.bulkCreate(collection)
 })
-
-describe.each([[0,0,0]])('',async (body,token,statusCode)=>{
+const starCollection=[
+    [{t:1},createJWT({email:'usertest3@gamedex.com',id:3}),HTTP_STATUS.OK],
+]
+describe.each(starCollection)('',async (body,token,statusCode)=>{
     test('POST /stars',async()=>{
-        //const res=await request(mock.app).post('/collection').attach('evidence_img',body.evidence_img).field('id_game',body.id_game).set('authorization',token);
-        //expect(res.statusCode).toBe(statusCode)
+        const res=await request(mock.app)
+            .post('/stars')
+            .send(body)
+            .set('authorization',token)
+        ;
+        expect(res.statusCode).toBe(statusCode)
         //if(res.statusCode==HTTP_STATUS.OK){
+            
+            
+
         //}
-        return 
+        
     })
 })
 
