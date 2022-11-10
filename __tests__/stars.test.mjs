@@ -58,7 +58,6 @@ beforeAll(async ()=>{
     const buffer_evidence_img=await readFile(evidence_img_path);
     const resized_buffer_evidence_img=await resizeImage(buffer_evidence_img);
     const evidence_img=ConvertBufferToBase64(resized_buffer_evidence_img);
-    //create collection for user 1
     const collection=[]
     for(let c=1;c<=5;c++){
         collection.push({
@@ -74,23 +73,27 @@ beforeAll(async ()=>{
     }
 
     await Collections.bulkCreate(collection)
+
 })
 const starCollection=[
-    [{t:1},createJWT({email:'usertest3@gamedex.com',id:3}),HTTP_STATUS.OK],
+    [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
+    [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
+    [{id_collection:9999},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
+    [{id_collection:3},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
 ]
 describe.each(starCollection)('',async (body,token,statusCode)=>{
     test('POST /stars',async()=>{
         const res=await request(mock.app)
             .post('/stars')
-            .send(body)
             .set('authorization',token)
+            .send(body)
         ;
         expect(res.statusCode).toBe(statusCode)
-        //if(res.statusCode==HTTP_STATUS.OK){
-            
-            
-
-        //}
+        if(res.statusCode==HTTP_STATUS.OK){
+            expect(res.body.id_user).toBeDefined()
+            expect(res.body.id_games_collection).toBe(body.id_collection)
+            expect(res.body.id).toBeDefined()
+        }
         
     })
 })
