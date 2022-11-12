@@ -41,6 +41,7 @@ beforeAll(async ()=>{
 
 const MarkGameDex=[
     [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
+    [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:99999,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'should fail',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'null',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],

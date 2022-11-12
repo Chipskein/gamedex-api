@@ -8,7 +8,7 @@ export async function AddToCollection(req,res){
     const body=JSON.parse(JSON.stringify(req.body))
     const file=req.file
     try{
-        const InvalidBody=validateAddToCollection(body)
+        const InvalidBody=await validateAddToCollection(body)
         if(InvalidBody){
             throw {
                 status:HTTP_STATUS.BAD_REQUEST,

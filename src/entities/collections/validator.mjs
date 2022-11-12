@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { ValidImageMimeType } from "../../utils/image.mjs";
-
+import Games from "../games/model.mjs";
+import Collections from "./model.mjs";
 
 const AddToCollectionSchema = Joi.object({
     id_game:Joi.number().required()
@@ -16,15 +17,22 @@ const EvidenceImageSchema = Joi.object({
     filename: Joi.string().optional(),
 });
 
-export function validateAddToCollection(request){
-    const validacao = AddToCollectionSchema.validate(request, {
+export async function validateAddToCollection(body){
+    const validacao = AddToCollectionSchema.validate(body, {
         abortEarly: false
     });
     
     if (validacao.error) {
         return validacao.error;
     }
-
+    const gameExists = await Games.findByPk(body.id_game)
+    if(!gameExists){
+        return { details:[{message:"Game Don't exists"}]}
+    }
+    const gameAlreadyInCollection=await Collections.findOne({where:{id_game:body.id_game}})
+    if(gameAlreadyInCollection){
+        return { details:[{message:"Game Already in collection"}]}
+    }
 }
 export  function validateEvidenceImg(file){
     const validacao = EvidenceImageSchema.validate(file, {
