@@ -77,7 +77,7 @@ beforeAll(async ()=>{
 })
 const starCollection=[
     [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
-    [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
+    [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
     [{id_collection:9999},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
     [{id_collection:3},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
 ]
@@ -95,6 +95,22 @@ describe.each(starCollection)('',async (body,token,statusCode)=>{
             expect(res.body.id).toBeDefined()
         }
         
+    })
+})
+const deleteCollection=[
+    [{id_collection:1},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
+    [{id_collection:3},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.OK],
+    [{id_collection:5},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
+    [{id_collection:999999999999},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
+]
+describe.each(deleteCollection)('',async (body,token,statusCode)=>{
+    test('DELETE /stars',async()=>{
+        const res=await request(mock.app)
+            .delete('/stars')
+            .set('authorization',token)
+            .send(body)
+        ;
+        expect(res.statusCode).toBe(statusCode)
     })
 })
 

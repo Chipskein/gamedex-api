@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-export default class Collections extends Model {
+export default class Stars extends Model {
     static init(sequelize) {
         const tableConfig={ 
             sequelize, 
