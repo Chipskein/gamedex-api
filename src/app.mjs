@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors'
 import { HTTP_STATUS } from './consts/http-status.mjs';
 import path from 'path'
 import {fileURLToPath} from 'url';
@@ -16,6 +17,7 @@ export async function CreateAppInstace(database){
     const app = express();
     app.use(express.urlencoded({extended:true}));
     app.use(express.json());
+    app.use(cors());
 
     app.use("/users",usersRoutes)
     app.use("/games",gamesRoutes)
