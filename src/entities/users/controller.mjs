@@ -58,7 +58,8 @@ export async function AuthUser(req,res){
             }
         }
         const token=createJWT({id,email})
-        return res.status(HTTP_STATUS.OK).json({token})
+        delete(user.password)
+        return res.status(HTTP_STATUS.OK).json({token,...user})
     }
     catch(err){
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR

@@ -52,6 +52,14 @@ describe.each(AuthUserTable)('Body:%j expected Status Code:%d',(body,statusCode)
         expect(res.statusCode).toBe(statusCode)
         if(res.statusCode==HTTP_STATUS.OK){
             expect(res.body.token).toBeDefined()
+            expect(res.body.id).toBeDefined()
+            expect(res.body.name).toBeDefined()
+            expect(res.body.email).toBeDefined()
+            expect(res.body.active).toBeDefined()
+            expect(res.body.img).toBeDefined()
+            expect(res.body.is_data_master).toBeDefined()
+            expect(res.body.createdAt).toBeDefined()
+            expect(res.body.updatedAt).toBeDefined()
             const tokenParse=verifyJWT(res.body.token)
             expect(tokenParse).toContain({
                 email:body.email,
