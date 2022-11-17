@@ -39,265 +39,265 @@
         {
             "name":"League of Legends",
             "publisher":"",
-            "img":"",
+            "img":"https://geekonomics.com.br/wp-content/uploads/2019/10/vieses-league-of-legends-capa.jpg",
             "genre":"MOBA"
         },
         {
             "name":"Call of Duty Mobile",
-            "publisher":"",
-            "img":"",
+            "publisher":"Activision",
+            "img":"https://s2.glbimg.com/jBWRLpzFfnoaaDUgIUMJTTORCyM=/0x0:896x505/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2019/T/a/A0BpXZRG2ERko5MF8gJw/captura-de-tela-2019-03-19-as-13.56.29.png",
             "genre":"FPS"
         },
         {
             "name":"Call of Duty Warzone",
-            "publisher":"",
-            "img":"",
+            "publisher":"Activison",
+            "img":"https://notadogame.com/uploads/game/cover/350x/5e741805f3c13.jpg",
             "genre":"FPS"
         },
         {
             "name":"Dota 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"Valve",
+            "img":"https://cdn.akamai.steamstatic.com/steam/apps/570/capsule_616x353.jpg?t=1650611880",
             "genre":"MOBA"
         },
         {
             "name":"The Division 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"Ubisoft",
+            "img":"https://store.ubi.com/dw/image/v2/ABBS_PRD/on/demandware.static/-/Sites-masterCatalog/en_US/dw44a8a154/images/large/5b06a3984e0165fa45ffdcc5.jpg",
             "genre":"FPS"
         },
         {
             "name":"The Splatoon 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"Nintendo",
+            "img":"https://m.media-amazon.com/images/I/51HEHyILbeL._AC_SY445_.jpg",
             "genre":"FPS"
         },
         {
             "name":"Overwatch",
-            "publisher":"",
-            "img":"",
+            "publisher":"Blizzard",
+            "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUlmnW_ebSfF3q33RZagxDgOkVhd-c9Q8BflF7fHIel53DGpSLmg6jz9ppNiajZpmMqFE&usqp=CAU",
             "genre":"FPS,MOBA"
         },
         {
             "name":"Tom Clancy's Rainbow Six: Siege",
-            "publisher":"",
-            "img":"",
+            "publisher":"Ubisoft",
+            "img":"https://cdn.awsli.com.br/300x300/1709/1709188/produto/95335091/c4fcab5dd8.jpg",
             "genre":"FPS"
         },
         {
             "name":"Elden Ring",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phvVT0qZfcRms5qDAk0SI3CM.png",
             "genre":"RPG"
         },
         {
             "name":"Dark Souls",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://http2.mlstatic.com/D_NQ_NP_891955-MLA40931864405_022020-O.jpg",
             "genre":"RPG"
         },
         {
             "name":"Dark Souls 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://m.media-amazon.com/images/I/91f3S5K+QnL._AC_SL1500_.jpg",
             "genre":"RPG"
         },
         {
             "name":"Dark Souls 3",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://m.media-amazon.com/images/I/71bN7mqVC+L.jpg",
             "genre":"RPG"
         },
         {
             "name":"The Witcher",
-            "publisher":"",
-            "img":"",
+            "publisher":"CD Project",
+            "img":"https://cdn.cloudflare.steamstatic.com/steam/apps/20900/capsule_616x353.jpg?t=1659616192",
             "genre":"RPG"
         },
         {
             "name":"Nier",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://m.media-amazon.com/images/I/61jut9gKTaL._AC_SX342_.jpg",
             "genre":"RPG"
         },
         {
             "name":"Nier Automata",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://m.media-amazon.com/images/I/91BXidBR5gL.jpg",
             "genre":"RPG"
         },
         {
             "name":"Drakengard",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://upload.wikimedia.org/wikipedia/pt/2/2b/Drakengard_1_capa.png",
             "genre":"RPG"
         },
         {
             "name":"Drakengard 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://upload.wikimedia.org/wikipedia/pt/thumb/5/5d/Drakengard_2_capa.png/270px-Drakengard_2_capa.png",
             "genre":"RPG"
         },
         {
             "name":"Drakengard 3",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://m.media-amazon.com/images/I/81fcLd5HYuL._AC_SX569_.jpg",
             "genre":"RPG"
         },
         {
             "name":"Nioh",
-            "publisher":"",
-            "img":"",
+            "publisher":"Team Ninja",
+            "img":"https://m.media-amazon.com/images/I/81ojGWw4KvL._AC_SX342_.jpg",
             "genre":"RPG"
         },
         {
             "name":"Nioh 2",
-            "publisher":"",
-            "img":"",
+            "publisher":"Team Ninja",
+            "img":"https://m.media-amazon.com/images/I/81BFbGB6r-L._AC_SL1500_.jpg",
             "genre":"RPG"
         },
         {
-            "name":"Bomba Patch",
-            "publisher":"",
-            "img":"",
+            "name":"Bomba Patch 2022",
+            "publisher":"....",
+            "img":"https://cf.shopee.com.br/file/54a57871e261bdda5ebbaa4a57011f2d",
             "genre":"sports"
         },
         {
             "name":"NBA Live 98",
-            "publisher":"",
-            "img":"",
+            "publisher":"EA Games",
+            "img":"https://cf.shopee.com.br/file/54a57871e261bdda5ebbaa4a57011f2d",
             "genre":"sports"
         },
         {
             "name":"FIFA 23",
-            "publisher":"",
-            "img":"",
+            "publisher":"EA Games",
+            "img":"https://m.media-amazon.com/images/I/61mkqjegjyL._AC_SX522_.jpg",
             "genre":"sports"
         },
         {
             "name":"Sekiro",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://upload.wikimedia.org/wikipedia/pt/thumb/7/7b/Sekiro_Shadows_Die_Twice_capa.png/270px-Sekiro_Shadows_Die_Twice_capa.png",
             "genre":"RPG"
         },
         {
             "name":"Bloodborne",
-            "publisher":"",
-            "img":"",
+            "publisher":"FromSoftware",
+            "img":"https://image.api.playstation.com/cdn/UP9000/CUSA00900_00/9EJsLXyKS0S1BRey5nwQBOuYr6EDRbGX.png",
             "genre":"RPG"
         },
         {
             "name":"Doom",
-            "publisher":"",
-            "img":"",
-            "genre":""
+            "publisher":"ID games",
+            "img":"https://upload.wikimedia.org/wikipedia/pt/5/57/Doom_cover_art.jpg",
+            "genre":"FPS"
         },
         {
             "name":"Persona",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfssudHPuJvihxMC9_UnN7A1Uv9vptNPivetm_w7m8_qXJZSqgExEL8Cbgi105YZBArQ&usqp=CAU",
             "genre":"RPG"
         },
         {
             "name":"Persona 2 Eternal Punishment",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://upload.wikimedia.org/wikipedia/en/a/a9/Persona_2_EP_cover.jpg",
             "genre":"RPG"
         },
         {
             "name":"Persona 2 Innocent Sin",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Persona_2_Innocent_Sin_US_Cover_Art.jpg/220px-Persona_2_Innocent_Sin_US_Cover_Art.jpg",
             "genre":"RPG"
         },
         {
             "name":"Persona 3",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://m.media-amazon.com/images/I/810q4BCqoCS.jpg",
             "genre":"RPG"
         },
         {
             "name":"Persona 4",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://m.media-amazon.com/images/I/51fOKzgaeBL.jpg",
             "genre":"RPG"
         },
         {
             "name":"Persona 5",
-            "publisher":"",
-            "img":"",
+            "publisher":"Atlus",
+            "img":"https://image.api.playstation.com/vulcan/img/cfn/11307XlqDFlHmHWGjBPndSappCDTnE9OmnP2P-dSzcvLX9i0pvH_okJOl6dP1AnZefxthD-2k3RrsdzYU_BqUy9K5_sv-Tnx.png",
             "genre":"RPG"
         },
         {
             "name":"The Witcher 3",
-            "publisher":"",
-            "img":"",
+            "publisher":"CD Project",
+            "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7eT8rVRY7H6dAQ3Xh5FMqqzDR4g7OzkkkaWcRKQ5zsZCkMyYnkQRW0vCibHp9902Lh7A&usqp=CAU",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://static.wikia.nocookie.net/finalfantasy/images/9/94/Logo_Alternativo_FFI.jpg/revision/latest/scale-to-width-down/250?cb=20150307223205&path-prefix=pt-br",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy II",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://m.media-amazon.com/images/I/71Y4v3kj3AL.png",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy III",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://assets-prd.ignimgs.com/2022/04/30/final-fantasy-iii-button-crop-1651277150599.jpg",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy IV",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc8o-TDYLrw2iycuan0qsPdSAP34jRLARq-VRfWGOg6ABHAZ0S_BEJ-MFHNhNEn0NQCaE&usqp=CAU",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy V",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://play-lh.googleusercontent.com/r-vYIhQjAaOm0m7p3b_52xTVpgsleYoceDknFXB-JMIlxQNjQ012qlvgyTAZRh8Xdo4",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy VI",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://images.igdb.com/igdb/image/upload/t_cover_big_2x/co2yh2.jpg",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy VII",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://cdn.awsli.com.br/300x300/1142/1142208/produto/86273447/96cdc73add.jpg",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy VIII",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://upload.wikimedia.org/wikipedia/en/5/5d/Final_Fantasy_8_ntsc-front.jpg",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy IX",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://image.api.playstation.com/cdn/UP0082/CUSA08877_00/w5Qz9UKNBvTZBSRZlV2jeG2BLOJ1u7Jw.png",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy X",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://m.media-amazon.com/images/I/91rQrZ+BRHL._AC_SL1500_.jpg",
             "genre":"RPG"
         },
         {
             "name":"Final Fantasy XI",
-            "publisher":"",
-            "img":"",
+            "publisher":"Square Enix",
+            "img":"https://upload.wikimedia.org/wikipedia/pt/a/a2/FFXI.png",
             "genre":"RPG"
         } 
     ]
