@@ -1,0 +1,304 @@
+{
+    "games":[
+        {
+            "name":"PlayerUnknown's Battlegrounds",
+            "publisher":"PUBG Corporation",
+            "img":"https://assets-prd.ignimgs.com/2022/03/09/pubgbattlegrounds-1646861967387.jpg",
+            "genre":"battle-royale"
+        },
+        {
+            "name":"Minecraft",
+            "publisher":"Mojang",
+            "img":"https://www.minecraft.net/content/dam/games/minecraft/key-art/Games_Subnav_Minecraft-300x465.jpg",
+            "genre":"sandbox"
+        },
+        {
+            "name":"Apex Legends",
+            "publisher":"EA Games",
+            "img":"https://static.wikia.nocookie.net/apexlegends_gamepedia_en/images/e/ef/Apex_Legends.png/revision/latest?cb=20200925052051",
+            "genre":"battle-royale"
+        },
+        {
+            "name":"Fortnite",
+            "publisher":"Epic Games",
+            "img":"https://media.s-bol.com/NQLLpwjEG1m/P1EQgn2/550x780.jpg",
+            "genre":"battle-royale"
+        },
+        {
+            "name":"Counter-Strike: Global Offensive",
+            "publisher":"Valve",
+            "img":"https://cdn.akamai.steamstatic.com/steam/apps/730/capsule_616x353.jpg?t=1668125812",
+            "genre":"FPS"
+        },
+        {
+            "name":"Hearthstone: Heroes of Warcraft",
+            "publisher":"Blizard",
+            "img":"https://m.media-amazon.com/images/I/81iwwY8v3UL.jpg",
+            "genre":"cardgame,strategy"
+        },
+        {
+            "name":"League of Legends",
+            "publisher":"",
+            "img":"",
+            "genre":"MOBA"
+        },
+        {
+            "name":"Call of Duty Mobile",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS"
+        },
+        {
+            "name":"Call of Duty Warzone",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS"
+        },
+        {
+            "name":"Dota 2",
+            "publisher":"",
+            "img":"",
+            "genre":"MOBA"
+        },
+        {
+            "name":"The Division 2",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS"
+        },
+        {
+            "name":"The Splatoon 2",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS"
+        },
+        {
+            "name":"Overwatch",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS,MOBA"
+        },
+        {
+            "name":"Tom Clancy's Rainbow Six: Siege",
+            "publisher":"",
+            "img":"",
+            "genre":"FPS"
+        },
+        {
+            "name":"Elden Ring",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Dark Souls",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Dark Souls 2",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Dark Souls 3",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"The Witcher",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Nier",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Nier Automata",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Drakengard",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Drakengard 2",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Drakengard 3",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Nioh",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Nioh 2",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Bomba Patch",
+            "publisher":"",
+            "img":"",
+            "genre":"sports"
+        },
+        {
+            "name":"NBA Live 98",
+            "publisher":"",
+            "img":"",
+            "genre":"sports"
+        },
+        {
+            "name":"FIFA 23",
+            "publisher":"",
+            "img":"",
+            "genre":"sports"
+        },
+        {
+            "name":"Sekiro",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Bloodborne",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Doom",
+            "publisher":"",
+            "img":"",
+            "genre":""
+        },
+        {
+            "name":"Persona",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Persona 2 Eternal Punishment",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Persona 2 Innocent Sin",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Persona 3",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Persona 4",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Persona 5",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"The Witcher 3",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy II",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy III",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy IV",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy V",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy VI",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy VII",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy VIII",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy IX",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy X",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        },
+        {
+            "name":"Final Fantasy XI",
+            "publisher":"",
+            "img":"",
+            "genre":"RPG"
+        } 
+    ]
+}
