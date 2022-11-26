@@ -16,6 +16,10 @@ const EvidenceImageSchema = Joi.object({
     destination: Joi.string().optional(),
     filename: Joi.string().optional(),
 });
+const GetCollectionSchema = Joi.object({
+    limit:Joi.number(),
+    offset:Joi.number()
+});
 
 export async function validateAddToCollection(body){
     const validacao = AddToCollectionSchema.validate(body, {
@@ -34,6 +38,7 @@ export async function validateAddToCollection(body){
         return { details:[{message:"Game Already in collection"}]}
     }
 }
+
 export  function validateEvidenceImg(file){
     const validacao = EvidenceImageSchema.validate(file, {
         abortEarly: false
@@ -45,4 +50,13 @@ export  function validateEvidenceImg(file){
         return validacao.error;
     }
 
+}
+
+export function validateGetCollection(query){
+    const validacao = GetCollectionSchema.validate(query, {
+        abortEarly: false
+    });
+    if (validacao.error) {
+        return validacao.error;
+    }
 }
