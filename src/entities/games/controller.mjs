@@ -1,5 +1,6 @@
 import { HTTP_STATUS } from "../../consts/http-status.mjs"
 import Games from "./model.mjs"
+import Collections from "../collections/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
 
 export async function CreateGame(req,res){
@@ -35,7 +36,13 @@ export async function GetGames(req,res){
         if(!offset) offset=0;
         limit=Number(limit)
         offset=Number(offset)
-        const {count,rows}=await Games.findAndCountAll({limit,offset})
+        const {count,rows}=await Games.findAndCountAll({
+            include: [{
+                model: Collections,
+                required: false,
+            }],
+            limit,offset
+        })
         const games=[];
         rows.map(({dataValues:game})=>{games.push(game)});
         return res.status(HTTP_STATUS.OK).json({count,limit,offset,games})
