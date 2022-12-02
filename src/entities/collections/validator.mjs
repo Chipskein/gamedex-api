@@ -4,8 +4,9 @@ import Games from "../games/model.mjs";
 import Collections from "./model.mjs";
 
 const AddToCollectionSchema = Joi.object({
-    id_game:Joi.number().required()
+    id_game:Joi.string().required()
 });
+
 const EvidenceImageSchema = Joi.object({
     path:Joi.string().required(),
     mimetype:Joi.string().required(),
