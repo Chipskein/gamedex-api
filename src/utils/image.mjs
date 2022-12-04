@@ -10,8 +10,6 @@ const multer_config= {
     dest: path.resolve() + "/tmp"
 }
 
-console.log("path ", `${path.resolve()}\\tmp`)
-
 export const upload = multer(multer_config);
 
 export async function uploadImage(file){
@@ -37,6 +35,6 @@ export async function processEvidenceImage(file){
     const resizedBuffer=await resizeImage(buffer)
     const base64=ConvertBufferToBase64(resizedBuffer)
     const base64String=`data:${mimetype};base64,${base64}`
-    //await rm(path)
+    await rm(path)
     return base64String   
 }

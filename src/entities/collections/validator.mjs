@@ -4,7 +4,10 @@ import Games from "../games/model.mjs";
 import Collections from "./model.mjs";
 
 const AddToCollectionSchema = Joi.object({
-    id_game:Joi.string().required()
+    id_game:Joi.alternatives(
+        Joi.string(),
+        Joi.number()
+    ).required()
 });
 
 const EvidenceImageSchema = Joi.object({
@@ -30,6 +33,10 @@ export async function validateAddToCollection(body){
     if (validacao.error) {
         return validacao.error;
     }
+    if(isNaN(body.id_game)){
+        return { details:[{message:"id_game should be  a number"}]}
+    }
+
     const gameExists = await Games.findByPk(body.id_game)
     if(!gameExists){
         return { details:[{message:"Game Don't exists"}]}

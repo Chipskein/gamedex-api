@@ -41,6 +41,7 @@ export async function AddToCollection(req,res){
         return res.status(HTTP_STATUS.OK).json(item_collection)
     }
     catch(err){
+        console.log(err)
         if(file) await rm(file.path)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
