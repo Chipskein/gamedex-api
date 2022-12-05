@@ -3,7 +3,7 @@ import { processEvidenceImage } from "../../utils/image.mjs"
 import Games from "../games/model.mjs"
 import Collections from "./model.mjs"
 import { rm } from 'fs/promises'
-import { validateAddToCollection, validateEvidenceImg, validateGetCollection } from "./validator.mjs"
+import { validateAddToCollection, validateEvidenceImg, validateGetCollection, validateDeleteItem } from "./validator.mjs"
 
 export async function AddToCollection(req,res){
     const body=JSON.parse(JSON.stringify(req.body))
@@ -29,7 +29,7 @@ export async function AddToCollection(req,res){
         if(!gameExists){
             throw {
                 status:HTTP_STATUS.BAD_REQUEST,
-                message:"Game Don't exists"
+                message:"Game Doesn't exists"
             }
         }
         const evidence_img=await processEvidenceImage(file)
@@ -43,6 +43,42 @@ export async function AddToCollection(req,res){
     catch(err){
         console.log(err)
         if(file) await rm(file.path)
+        let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
+        return res.status(statusCode).json({ msg: err.message})
+    }
+}
+
+export async function DeleteItem(req,res){
+    const { id } = req.params;
+    try{
+        const InvalidBody=await validateDeleteItem({ id: id })
+        if(InvalidBody){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:InvalidBody.details[0].message
+            }
+        }
+
+        const { id: id_user } = req.user
+        // const { id } = body
+        const itemExists=await Collections.findOne({
+            where: { id, id_user }
+        })
+
+        if(!itemExists){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:"Item Doesn't exists"
+            }
+        }
+        
+        const resData = await Collections.destroy({
+            where: { id: id }
+        })
+        return res.status(HTTP_STATUS.OK).json(resData)
+    }
+    catch(err){
+        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }

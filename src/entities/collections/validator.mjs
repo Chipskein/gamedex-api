@@ -10,6 +10,13 @@ const AddToCollectionSchema = Joi.object({
     ).required()
 });
 
+const DeleteItemSchema = Joi.object({
+    id: Joi.alternatives(
+        Joi.string(),
+        Joi.number()
+    ).required()
+});
+
 const EvidenceImageSchema = Joi.object({
     path:Joi.string().required(),
     mimetype:Joi.string().required(),
@@ -34,7 +41,7 @@ export async function validateAddToCollection(body){
         return validacao.error;
     }
     if(isNaN(body.id_game)){
-        return { details:[{message:"id_game should be  a number"}]}
+        return { details:[{message:"id_game should be a number"}]}
     }
 
     const gameExists = await Games.findByPk(body.id_game)
@@ -44,6 +51,24 @@ export async function validateAddToCollection(body){
     const gameAlreadyInCollection=await Collections.findOne({where:{id_game:body.id_game}})
     if(gameAlreadyInCollection){
         return { details:[{message:"Game Already in collection"}]}
+    }
+}
+
+export async function validateDeleteItem(body){
+    const validacao = DeleteItemSchema.validate(body, {
+        abortEarly: false
+    });
+    
+    if (validacao.error) {
+        return validacao.error;
+    }
+    if(isNaN(body.id)){
+        return { details:[{message:"id should be a number"}]}
+    }
+
+    const gameInCollection=await Collections.findOne({ where: {id: body.id} })
+    if(!gameInCollection){
+        return { details:[{message:"Item not in collection"}]}
     }
 }
 
