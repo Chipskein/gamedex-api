@@ -107,7 +107,6 @@ export async function DeleteUser(req,res){
         return res.status(HTTP_STATUS.OK).json(user)
     }
     catch(err){
-        if(serverPath) await rm(serverPath)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }

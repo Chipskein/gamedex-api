@@ -7,7 +7,6 @@ import { ReadDefaultGames } from '../utils/dump_defaults.mjs';
 
 
 
-
 export function CreateSequelizeInstance(){
     const DATABASE_URL=process.env.DATABASE_URL || process.env.VITE_DATABASE_URL;
     return  new Sequelize(DATABASE_URL,{logging:false});
@@ -39,4 +38,12 @@ export async function InitDatabase(db){
 }
 export async function cleanDatabase(db){
     await db.sync({force:true})
+}
+
+let  conn=null;
+export function saveConnForRawQuery(database){
+    conn=database
+}    
+export function getConnForRawQuery(){
+    return conn;
 }

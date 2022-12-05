@@ -45,7 +45,7 @@ export async function GetGames(req,res){
 
         const {count,rows}=await Games.findAndCountAll({
             where: {
-                name: { [Op.like]: query }
+                name: { [Op.ilike]: query }
             },
             include: [{
                 model: Collections,

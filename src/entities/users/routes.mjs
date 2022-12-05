@@ -6,7 +6,7 @@ let RouterUsers=Router()
 RouterUsers.post('/',CreateUser);
 RouterUsers.post('/auth',AuthUser);
 RouterUsers.put('/',verifyToken,upload.single('img'),UpdateUser);
-RouterUsers.delete('/',verifyToken,upload.single('img'),DeleteUser);
+RouterUsers.delete('/',verifyToken,DeleteUser);
 RouterUsers.get('/',verifyToken,GetUsers);
 RouterUsers.get('/search',verifyToken,SearchUsers);
 RouterUsers.get('/:id',verifyToken,GetUser);

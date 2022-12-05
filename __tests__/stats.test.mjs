@@ -9,6 +9,7 @@ import { readFile } from 'fs/promises'
 import Users from '../src/entities/users/model.mjs';
 import Games from '../src/entities/games/model.mjs';
 import Collections from '../src/entities/collections/model.mjs';
+import Stars from '../src/entities/stars/model.mjs';
 import { resizeImage } from '../src/utils/image-resizer.mjs'
 import { ConvertBufferToBase64 } from '../src/utils/base64.mjs';
 const mock={
@@ -98,7 +99,7 @@ beforeAll(async ()=>{
     const resized_buffer_evidence_img=await resizeImage(buffer_evidence_img);
     const evidence_img=ConvertBufferToBase64(resized_buffer_evidence_img);
     const collection=[]
-    for(let c=1;c<=5;c++){
+    for(let c=1;c<=10;c++){
         collection.push({
             id_game:c,
             evidence_img,
@@ -121,23 +122,34 @@ beforeAll(async ()=>{
         })
     }
     await Collections.bulkCreate(collection)
+
+    const stars=[
+        
+    ]
+    
+    
+    
+    
+    await Stars.bulkCreate(stars)
+
 })
 
 describe("RANKS",()=>{
+    it("Should get Top more stared items",async ()=>{
+        const token=createJWT({id:2,email:"usertestNOT_data_master@gamedex.com"})
+        const res=await request(mock.app).get('/stats/more-stared-items').set('authorization',token);
+        expect(res.statusCode).toBe(HTTP_STATUS.OK)
+        console.log(res.body);
+    })
+ /*
     it("Should Get TOP 5 Users with most items",()=>{
-        return false
+        expect(false).toBeTruthy()
     })
     it("Should Get TOP 5 Items that more people have it",()=>{
-        return false
+        expect(false).toBeTruthy()
     })
+*/
 })
-
-
-
-
-
-
-
 
 
 afterAll(async ()=>{
