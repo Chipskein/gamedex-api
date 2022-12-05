@@ -63,11 +63,13 @@ export async function GetCollection(req,res){
         limit=Number(limit)
         offset=Number(offset)
         let idUser = req.user.id;
-        const response = await await Collections.findAndCountAll({ 
-            where: { id_user: idUser },
+        const response = await Games.findAndCountAll({ 
             include: [{
-                model: Games,
+                model: Collections,
                 required: true,
+                where: {
+                    id_user: idUser
+                }
             }],
             limit,
             offset
