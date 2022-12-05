@@ -2,6 +2,7 @@ import { HTTP_STATUS } from "../../consts/http-status.mjs"
 import Games from "./model.mjs"
 import Collections from "../collections/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
+import { Sequelize } from "sequelize"
 
 export async function CreateGame(req,res){
     try{
@@ -31,12 +32,21 @@ export async function GetGames(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        let {limit,offset}=req.query;
+        let {filter,search,limit,offset}=req.query;
+        if(!filter) filter="all";
+        if(!search) search="";
         if(!limit) limit=10;
         if(!offset) offset=0;
         limit=Number(limit)
         offset=Number(offset)
+
+        const Op = Sequelize.Op;
+        const query = `%${search}%`;
+
         const {count,rows}=await Games.findAndCountAll({
+            where: {
+                name: { [Op.like]: query }
+            },
             include: [{
                 model: Collections,
                 required: false,

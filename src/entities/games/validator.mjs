@@ -8,6 +8,8 @@ const gameSchema = Joi.object({
 });
 
 const GetGamesSchema = Joi.object({
+    filter:Joi.string(),
+    search:Joi.string(),
     limit:Joi.number(),
     offset:Joi.number()
 });
