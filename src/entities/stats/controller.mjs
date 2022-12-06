@@ -1,12 +1,11 @@
 import { HTTP_STATUS } from "../../consts/http-status.mjs";
-import { testing } from "./dao.mjs";
+import * as dao from "./dao.mjs";
 
 
 export async function GetMoreStaredItems(req,res){
     try{
-        const data={items:[],}
-        console.log(await testing())
-        return res.status(HTTP_STATUS.OK).json(data)
+        const items=await dao.GetMoreStaredItems();
+        return res.status(HTTP_STATUS.OK).json({items})
     }
     catch(err){
         console.log(err)

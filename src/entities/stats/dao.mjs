@@ -1,22 +1,37 @@
 import { QueryTypes } from "sequelize";
 import { getConnForRawQuery } from "../../orm/sequelize.mjs";
 
-export async function testing(){
+export async function GetMoreStaredItems(){
     const sequelize=getConnForRawQuery();
     //for postgresql
     const query=`
         select 
-            gc.id as idItem,
-            count(*) as stars_count
+            tmp.*,
+            g.name as game_name,
+            g.publisher as game_publisher,
+            g.img as game_img
         from 
-            games_collections gc
-        join stars s on s.id_games_collection=gc.id
-        group by gc.id
-        ;`
-    const result=await sequelize.query(query,{
-        type: QueryTypes.SELECT
-    })
+        (
+            select 
+                dense_rank() over(order by count(s.id_games_collection) desc) as rank,
+                count(s.id_games_collection) as stars,    
+                gc.id as id_item,
+                gc.evidence_img,
+                gc.id_game,
+                gc.id_user
+            from games_collections gc
+            left join stars s on s.id_games_collection=gc.id
+            group by gc.id
+        ) as tmp
+        inner join games g on g.id=tmp.id_game
+        where 
+            tmp.rank <= 5
+        order by tmp.rank
+        ;
+    `
+    const result=await sequelize.query(query,{type: QueryTypes.SELECT})
     return  result
 }
+
 
 

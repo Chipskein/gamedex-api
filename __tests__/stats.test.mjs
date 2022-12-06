@@ -128,15 +128,57 @@ beforeAll(async ()=>{
         {id_games_collection:1,id_user:3},
         {id_games_collection:1,id_user:4},
         {id_games_collection:1,id_user:10},
+        {id_games_collection:1,id_user:5},
+        {id_games_collection:1,id_user:6},
+        {id_games_collection:1,id_user:7},
+        {id_games_collection:1,id_user:8},
+        {id_games_collection:1,id_user:9},
 
-        {id_games_collection:2,id_user:4},
-        {id_games_collection:2,id_user:8},
-        {id_games_collection:2,id_user:10},
-        
+        {id_games_collection:5,id_user:1},
+        {id_games_collection:5,id_user:3},
+        {id_games_collection:5,id_user:4},
+        {id_games_collection:5,id_user:5},
+        {id_games_collection:5,id_user:6},
         {id_games_collection:5,id_user:7},
-        {id_games_collection:5,id_user:10},
+        {id_games_collection:5,id_user:8},
+        {id_games_collection:5,id_user:9},
 
+        {id_games_collection:10,id_user:2},
+        {id_games_collection:10,id_user:4},
+        {id_games_collection:10,id_user:5},
+        {id_games_collection:10,id_user:6},
+        {id_games_collection:10,id_user:7},
+        {id_games_collection:10,id_user:8},
+        {id_games_collection:10,id_user:9},
+        {id_games_collection:10,id_user:10},
+
+        {id_games_collection:15,id_user:2},
+        {id_games_collection:15,id_user:3},
+        {id_games_collection:15,id_user:7},
+        {id_games_collection:15,id_user:8},
+        {id_games_collection:15,id_user:9},
+        {id_games_collection:15,id_user:10},
+
+        {id_games_collection:16,id_user:2},
+        {id_games_collection:16,id_user:3},
+        {id_games_collection:16,id_user:7},
+        {id_games_collection:16,id_user:8},
+        {id_games_collection:16,id_user:9},
         
+        {id_games_collection:17,id_user:3},
+        {id_games_collection:17,id_user:7},
+        {id_games_collection:17,id_user:8},
+        {id_games_collection:17,id_user:9},
+
+        {id_games_collection:20,id_user:3},
+        {id_games_collection:20,id_user:2},
+        {id_games_collection:20,id_user:1},
+        
+        {id_games_collection:21,id_user:7},
+        {id_games_collection:21,id_user:9},
+
+        {id_games_collection:25,id_user:7},
+
     ]
     
     
@@ -145,11 +187,30 @@ beforeAll(async ()=>{
 })
 
 describe("RANKS",()=>{
-    it("Should get Top more stared items",async ()=>{
+    it("Should get Top 5 more stared items",async ()=>{
         const token=createJWT({id:2,email:"usertestNOT_data_master@gamedex.com"})
         const res=await request(mock.app).get('/stats/more-stared-items').set('authorization',token);
         expect(res.statusCode).toBe(HTTP_STATUS.OK)
-        console.log(res.body);
+        const {items} = res.body
+        expect(items.length).toBeGreaterThan(0)
+        items.map(
+            (item,index)=>{
+                expect(Number(item.rank)).toBeTypeOf('number')
+                expect(Number(item.stars)).toBeTypeOf('number')
+                expect(item.id_item).toBeTypeOf('number')
+                expect(item.evidence_img).toBeTypeOf('string')
+                expect(item.id_game).toBeTypeOf('number')
+                expect(item.id_user).toBeTypeOf('number')
+                expect(item.game_name).toBeTypeOf('string')
+                expect(item.game_publisher).toBeTypeOf('string')
+                expect(item.game_img).toBeTypeOf('string')
+
+                if(index==items.length-1){
+                    expect(Number(item.rank)).toBe(5)
+                }
+            }
+        )
+        
     })
  /*
     it("Should Get TOP 5 Users with most items",()=>{
