@@ -124,10 +124,20 @@ beforeAll(async ()=>{
     await Collections.bulkCreate(collection)
 
     const stars=[
+        {id_games_collection:1,id_user:2},
+        {id_games_collection:1,id_user:3},
+        {id_games_collection:1,id_user:4},
+        {id_games_collection:1,id_user:10},
+
+        {id_games_collection:2,id_user:4},
+        {id_games_collection:2,id_user:8},
+        {id_games_collection:2,id_user:10},
+        
+        {id_games_collection:5,id_user:7},
+        {id_games_collection:5,id_user:10},
+
         
     ]
-    
-    
     
     
     await Stars.bulkCreate(stars)

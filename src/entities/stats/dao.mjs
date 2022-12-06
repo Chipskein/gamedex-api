@@ -3,7 +3,16 @@ import { getConnForRawQuery } from "../../orm/sequelize.mjs";
 
 export async function testing(){
     const sequelize=getConnForRawQuery();
-    const query=`select gc.id,gc.id_game,gc.id_user from games_collections gc;`
+    //for postgresql
+    const query=`
+        select 
+            gc.id as idItem,
+            count(*) as stars_count
+        from 
+            games_collections gc
+        join stars s on s.id_games_collection=gc.id
+        group by gc.id
+        ;`
     const result=await sequelize.query(query,{
         type: QueryTypes.SELECT
     })
