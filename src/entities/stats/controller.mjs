@@ -15,8 +15,8 @@ export async function GetMoreStaredItems(req,res){
 }
 export async function GetUsersWithMostItems(req,res){
     try{
-        const data={users:[]}
-        return res.status(HTTP_STATUS.OK).json(data)
+        const users=dao.GetUsersWithMostItems()
+        return res.status(HTTP_STATUS.OK).json({users})
     }
     catch(err){
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR

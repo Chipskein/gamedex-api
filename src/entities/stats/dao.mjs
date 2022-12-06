@@ -32,6 +32,14 @@ export async function GetMoreStaredItems(){
     const result=await sequelize.query(query,{type: QueryTypes.SELECT})
     return  result
 }
-
+export async function GetUsersWithMostItems(){
+    const sequelize=getConnForRawQuery();
+    //for postgresql
+    const query=`
+        
+    `
+    const result=await sequelize.query(query,{type: QueryTypes.SELECT})
+    return  result
+}
 
 
