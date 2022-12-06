@@ -19,7 +19,8 @@ const GetUserSchema= Joi.object({
 });
 const GetUsersSchema= Joi.object({
     limit:Joi.number(),
-    offset:Joi.number()
+    offset:Joi.number(),
+    search:Joi.string()
 });
 const SearchUsersSchema= Joi.object({
     search:Joi.string().required(),

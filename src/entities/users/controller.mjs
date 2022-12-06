@@ -120,12 +120,13 @@ export async function GetUsers(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        let {limit,offset}=req.query;
+        let {limit,offset, search}=req.query;
         if(!limit) limit=10;
         if(!offset) offset=0;
+        if(!search) search="";
         limit=Number(limit)
         offset=Number(offset)
-        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true}})
+        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true,name:{[Op.iLike]:`%${search}%`}}})
         const users=[];
         rows.map(({dataValues:user})=>{
             delete(user.password)
@@ -171,7 +172,7 @@ export async function SearchUsers(req,res){
         if(!offset) offset=0;
         limit=Number(limit)
         offset=Number(offset)
-        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true,name:{[Op.like]:`%${search}%`}}})
+        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true,name:{[Op.iLike]:`%${search}%`}}})
         const users=[];
         rows.map(({dataValues:user})=>{
             delete(user.password)

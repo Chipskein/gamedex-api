@@ -29,7 +29,8 @@ const EvidenceImageSchema = Joi.object({
 });
 const GetCollectionSchema = Joi.object({
     limit:Joi.number(),
-    offset:Joi.number()
+    offset:Joi.number(),
+    id:Joi.number(),
 });
 
 export async function validateAddToCollection(body){

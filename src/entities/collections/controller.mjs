@@ -93,12 +93,12 @@ export async function GetCollection(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        let {limit,offset}=req.query;
+        let {limit,offset, id}=req.query;
         if(!limit) limit=10;
         if(!offset) offset=0;
         limit=Number(limit)
         offset=Number(offset)
-        let idUser = req.user.id;
+        let idUser = id ? id : req.user.id;
         const response = await Games.findAndCountAll({ 
             include: [{
                 model: Collections,
