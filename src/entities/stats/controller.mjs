@@ -15,7 +15,7 @@ export async function GetMoreStaredItems(req,res){
 }
 export async function GetUsersWithMostItems(req,res){
     try{
-        const users=dao.GetUsersWithMostItems()
+        const users=await dao.GetUsersWithMostItems()
         return res.status(HTTP_STATUS.OK).json({users})
     }
     catch(err){

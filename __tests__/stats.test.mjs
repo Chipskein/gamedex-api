@@ -122,7 +122,6 @@ beforeAll(async ()=>{
         })
     }
     await Collections.bulkCreate(collection)
-
     const stars=[
         {id_games_collection:1,id_user:2},
         {id_games_collection:1,id_user:3},
@@ -180,8 +179,6 @@ beforeAll(async ()=>{
         {id_games_collection:25,id_user:7},
 
     ]
-    
-    
     await Stars.bulkCreate(stars)
 
 })
@@ -216,7 +213,25 @@ describe("RANKS",()=>{
         const token=createJWT({id:2,email:"usertestNOT_data_master@gamedex.com"})
         const res=await request(mock.app).get('/stats/users-most-items').set('authorization',token);
         expect(res.statusCode).toBe(HTTP_STATUS.OK)
-        console.log(res.body)        
+        const { users } = res.body
+        expect(users.length).toBeGreaterThan(0)
+        users.map(
+            (user,index)=>{
+                console.log(user)
+                expect(Number(user.rank)).toBeTypeOf('number')
+                expect(Number(user.games)).toBeTypeOf('number')
+                expect(user.id).toBeTypeOf('number')
+                expect(user.name).toBeTypeOf('string')
+                expect(user.email).toBeTypeOf('string')
+                expect(user.img).toBeDefined()
+                expect(user.active).toBeTypeOf('boolean')
+                expect(user.is_data_master).toBeTypeOf('boolean')
+                if(index==users.length-1){
+                    expect(Number(user.rank)).toBeLessThanOrEqual(5)
+                }
+
+            }
+        )  
     })
  /*
     it("Should Get TOP 5 Items that more people have it",()=>{

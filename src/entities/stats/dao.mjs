@@ -36,7 +36,30 @@ export async function GetUsersWithMostItems(){
     const sequelize=getConnForRawQuery();
     //for postgresql
     const query=`
-        
+        select 
+            tmp.rank,
+            tmp.games,
+            u.id,
+            u.name,
+            u.email,
+            u.img,
+            u.active,
+            u.is_data_master
+        from 
+        (
+            select 
+                dense_rank() over(order by count(gc.id_game) desc) as rank,
+                count(gc.id_game) as games,    
+                gc.id_user
+            from games_collections gc
+            
+            group by gc.id_user
+        ) as tmp
+        inner join users u on u.id=tmp.id_user and u.active is true
+        where 
+            tmp.rank <= 5
+        order by tmp.rank
+        ;
     `
     const result=await sequelize.query(query,{type: QueryTypes.SELECT})
     return  result
