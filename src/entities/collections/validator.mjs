@@ -33,7 +33,7 @@ const GetCollectionSchema = Joi.object({
     id:Joi.number(),
 });
 
-export async function validateAddToCollection(body){
+export async function validateAddToCollection(body,userId){
     const validacao = AddToCollectionSchema.validate(body, {
         abortEarly: false
     });
@@ -49,7 +49,7 @@ export async function validateAddToCollection(body){
     if(!gameExists){
         return { details:[{message:"Game Don't exists"}]}
     }
-    const gameAlreadyInCollection=await Collections.findOne({where:{id_game:body.id_game}})
+    const gameAlreadyInCollection=await Collections.findOne({where:{id_game:body.id_game,id_user:userId}})
     if(gameAlreadyInCollection){
         return { details:[{message:"Game Already in collection"}]}
     }

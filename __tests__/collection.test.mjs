@@ -30,6 +30,12 @@ beforeAll(async ()=>{
         password:'senhanaoencriptada',
         is_data_master:false    
     })
+    await Users.create({
+        name:"normal-user",
+        email:'usertestNOT_data_master2@gamedex.com',
+        password:'senhanaoencriptada',
+        is_data_master:false    
+    })
     const games=[]
     for(let c=1;c<=50;c++){
         games.push({name:`games-test${c}`,publisher:`publisher-test`,id_user:user.id})
@@ -42,11 +48,14 @@ beforeAll(async ()=>{
 const MarkGameDex=[
     [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
     [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
+    [{id_game:1,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:3,email:'usertestNOT_data_master2@gamedex.com'}),HTTP_STATUS.OK],
+    [{id_game:2,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:3,email:'usertestNOT_data_master2@gamedex.com'}),HTTP_STATUS.OK],
     [{id_game:99999,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'should fail',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:'null',evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.BAD_REQUEST],
     [{id_game:2,evidence_img:`${__dirname}/assets/img_test2.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
     [{id_game:4,evidence_img:`${__dirname}/assets/img_test3.jpg`},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com'}),HTTP_STATUS.OK],
+    [{id_game:4,evidence_img:`${__dirname}/assets/img_test.jpg`},createJWT({id:3,email:'usertestNOT_data_master2@gamedex.com'}),HTTP_STATUS.OK],
 ]
 describe.each(MarkGameDex)('',async (body,token,statusCode)=>{
     test('POST /collection',async()=>{
@@ -58,10 +67,7 @@ describe.each(MarkGameDex)('',async (body,token,statusCode)=>{
         ;
         expect(res.statusCode).toBe(statusCode)
         if(res.statusCode==HTTP_STATUS.OK){
-            expect(res.body).contain({
-                id_game:body.id_game,
-                id_user:2
-            })
+            expect(res.body).contain({id_game:body.id_game})
             expect(res.body.evidence_img).toBeDefined()
             const base64_data=res.body.evidence_img.split(',')[1]
             const isInBase64Encode=VerifyIfIsBase64(base64_data)
