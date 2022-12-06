@@ -25,6 +25,7 @@ export async function CreateGame(req,res){
 }
 export async function GetGames(req,res){
     try{
+        const { id:id_user } =req.user
         const isInvalid=validateGetGames(req.query)
         if(isInvalid){
             throw {
@@ -44,11 +45,10 @@ export async function GetGames(req,res){
         const query = `%${search}%`;
 
         const {count,rows}=await Games.findAndCountAll({
-            where: {
-                name: { [Op.iLike]: query }
-            },
+            where: {name: { [Op.iLike]: query }},
             include: [{
                 model: Collections,
+                where:{id_user},
                 required: false,
             }],
             limit,offset
