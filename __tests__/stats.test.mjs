@@ -203,7 +203,7 @@ describe("RANKS",()=>{
                 expect(item.game_img).toBeTypeOf('string')
 
                 if(index==items.length-1){
-                    expect(Number(item.rank)).toBe(5)
+                    expect(Number(item.rank)).toBeLessThanOrEqual(5)
                 }
             }
         )
@@ -217,7 +217,6 @@ describe("RANKS",()=>{
         expect(users.length).toBeGreaterThan(0)
         users.map(
             (user,index)=>{
-                console.log(user)
                 expect(Number(user.rank)).toBeTypeOf('number')
                 expect(Number(user.games)).toBeTypeOf('number')
                 expect(user.id).toBeTypeOf('number')
@@ -233,11 +232,29 @@ describe("RANKS",()=>{
             }
         )  
     })
- /*
-    it("Should Get TOP 5 Items that more people have it",()=>{
-        expect(false).toBeTruthy()
+    it("Should Get TOP 5 Items that more people have it",async ()=>{
+        const token=createJWT({id:2,email:"usertestNOT_data_master@gamedex.com"})
+        const res=await request(mock.app).get('/stats/more-possesed-items').set('authorization',token);
+        expect(res.statusCode).toBe(HTTP_STATUS.OK)
+        const { items } = res.body
+        expect(items.length).toBeGreaterThan(0)
+        items.map(
+            (item,index)=>{
+                console.log(item)
+                expect(Number(item.rank)).toBeTypeOf('number')
+                expect(Number(item.games_qt)).toBeTypeOf('number')
+                expect(item.game_id).toBeTypeOf('number')
+                expect(item.game_name).toBeTypeOf('string')
+                expect(item.game_publisher).toBeTypeOf('string')
+                expect(item.game_img).toBeTypeOf('string')
+
+                if(index==items.length-1){
+                    expect(Number(item.rank)).toBeLessThanOrEqual(5)
+                }
+            }
+        )
+        
     })
-*/
 })
 
 

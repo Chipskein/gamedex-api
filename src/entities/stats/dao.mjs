@@ -64,5 +64,33 @@ export async function GetUsersWithMostItems(){
     const result=await sequelize.query(query,{type: QueryTypes.SELECT})
     return  result
 }
-
+export async function GetMorePossesedItems(){
+    const sequelize=getConnForRawQuery();
+    //for postgresql
+    const query=`
+        select 
+            tmp.rank,
+            tmp.game_qt,
+            g.id as game_id,
+            g.name as game_name,
+            g.publisher as game_publisher,
+            g.img as game_img
+        from 
+        (
+            select 
+                dense_rank() over(order by  count(gc.id_game) desc) as rank,
+                gc.id_game,
+                count(gc.id_game) as game_qt
+            from games_collections gc
+            group by gc.id_game
+        ) as tmp
+        inner join games g on g.id=tmp.id_game
+        where 
+            tmp.rank <= 5
+        order by tmp.rank
+        ;
+    `
+    const result=await sequelize.query(query,{type: QueryTypes.SELECT})
+    return  result
+}
 

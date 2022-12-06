@@ -8,7 +8,6 @@ export async function GetMoreStaredItems(req,res){
         return res.status(HTTP_STATUS.OK).json({items})
     }
     catch(err){
-        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
@@ -25,10 +24,11 @@ export async function GetUsersWithMostItems(req,res){
 }
 export async function GetMorePossesedItems(req,res){
     try{
-        const data={items:[]}
-        return res.status(HTTP_STATUS.OK).json(data)
+        const items=await dao.GetMorePossesedItems()
+        return res.status(HTTP_STATUS.OK).json({items})
     }
     catch(err){
+        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
