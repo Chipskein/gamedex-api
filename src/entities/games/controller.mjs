@@ -1,8 +1,9 @@
 import { HTTP_STATUS } from "../../consts/http-status.mjs"
 import Games from "./model.mjs"
 import Collections from "../collections/model.mjs"
+import Stars from "../stars/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
-import { Sequelize } from "sequelize"
+import { Sequelize,fn,col } from "sequelize"
 
 export async function CreateGame(req,res){
     try{
@@ -54,10 +55,26 @@ export async function GetGames(req,res){
             limit,offset
         })
         const games=[];
-        rows.map(({dataValues:game})=>{games.push(game)});
+        await Promise.all(
+            rows.map( async ({dataValues:game})=>{
+                const {count:stars_qt}=await Collections.findAndCountAll(
+                    {
+                        where:{
+                            id_game:game.id
+                        },
+                        include:{
+                            model:Stars,
+                            required:true
+                        }
+                    }
+                )
+                games.push({...game,stars_qt})
+            })
+        );
         return res.status(HTTP_STATUS.OK).json({count,limit,offset,games})
     }
     catch(err){
+        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }

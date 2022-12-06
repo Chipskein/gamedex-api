@@ -1,6 +1,7 @@
 import { HTTP_STATUS } from "../../consts/http-status.mjs"
 import { processEvidenceImage } from "../../utils/image.mjs"
 import Games from "../games/model.mjs"
+import Stars from "../stars/model.mjs"
 import Collections from "./model.mjs"
 import { rm } from 'fs/promises'
 import { validateAddToCollection, validateEvidenceImg, validateGetCollection, validateDeleteItem } from "./validator.mjs"
@@ -99,7 +100,8 @@ export async function GetCollection(req,res){
         limit=Number(limit)
         offset=Number(offset)
         let idUser = id ? id : req.user.id;
-        const response = await Games.findAndCountAll({ 
+        const games=[];
+        const {rows,count} = await Games.findAndCountAll({ 
             include: [{
                 model: Collections,
                 required: true,
@@ -110,9 +112,26 @@ export async function GetCollection(req,res){
             limit,
             offset
         })
-        return res.status(HTTP_STATUS.OK).json(response)
+        await Promise.all(
+            rows.map( async ({dataValues:game})=>{
+                const {count:stars_qt}=await Collections.findAndCountAll(
+                    {
+                        where:{
+                            id_game:game.id
+                        },
+                        include:{
+                            model:Stars,
+                            required:true
+                        }
+                    }
+                )
+                games.push({...game,stars_qt})
+            })
+        );
+        return res.status(HTTP_STATUS.OK).json({rows:games,limit,offset,count})
     }
     catch(err){
+        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
