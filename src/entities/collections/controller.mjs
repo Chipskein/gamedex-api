@@ -125,7 +125,22 @@ export async function GetCollection(req,res){
                         }
                     }
                 )
-                games.push({...game,stars_qt})
+                let star=await Collections.findAll(
+                    {
+                        where:{
+                            id_game:game.id
+                        },
+                        include:{
+                            model:Stars,
+                            where:{
+                                id_user
+                            },
+                            required:true
+                        }
+                    }
+                )
+                const hasStaredItem= star.length>0 ? true:false;
+                games.push({...game,stars_qt,hasStaredItem})
             })
         );
         return res.status(HTTP_STATUS.OK).json({rows:games,limit,offset,count})

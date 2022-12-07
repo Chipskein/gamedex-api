@@ -3,7 +3,7 @@ import Games from "./model.mjs"
 import Collections from "../collections/model.mjs"
 import Stars from "../stars/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
-import { Sequelize,fn,col } from "sequelize"
+import { Sequelize } from "sequelize"
 import { validateEvidenceImg } from "../collections/validator.mjs"
 import { processEvidenceImage } from "../../utils/image.mjs"
 
@@ -81,7 +81,22 @@ export async function GetGames(req,res){
                         }
                     }
                 )
-                games.push({...game,stars_qt})
+                let star=await Collections.findAll(
+                    {
+                        where:{
+                            id_game:game.id
+                        },
+                        include:{
+                            model:Stars,
+                            where:{
+                                id_user
+                            },
+                            required:true
+                        }
+                    }
+                )
+                const hasStaredItem= star.length>0 ? true:false;
+                games.push({...game,stars_qt,hasStaredItem})
             })
         );
         return res.status(HTTP_STATUS.OK).json({count,limit,offset,games})
