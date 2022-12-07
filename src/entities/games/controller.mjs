@@ -4,6 +4,8 @@ import Collections from "../collections/model.mjs"
 import Stars from "../stars/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
 import { Sequelize,fn,col } from "sequelize"
+import { validateEvidenceImg } from "../collections/validator.mjs"
+import { processEvidenceImage } from "../../utils/image.mjs"
 
 export async function CreateGame(req,res){
     try{
@@ -14,9 +16,20 @@ export async function CreateGame(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        const { id:id_user } = req.user
-        const {name,publisher} =req.body
-        const { dataValues:game}=await Games.create({name,publisher,id_user})
+        const file = req.file;
+
+        const InvalidFile = validateEvidenceImg(file)
+        if(InvalidFile){
+            throw {
+                status:HTTP_STATUS.BAD_REQUEST,
+                message:InvalidFile.details[0].message
+            }
+        }
+        
+        const game_img = await processEvidenceImage(file, true)
+        const { id: id_user } = req.user
+        const { name, publisher, genre } = req.body
+        const { dataValues: game } = await Games.create({ name, publisher, id_user, genre, img: game_img })
         return res.status(HTTP_STATUS.OK).json(game)
     }
     catch(err){

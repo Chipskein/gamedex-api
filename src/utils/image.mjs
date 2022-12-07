@@ -29,10 +29,10 @@ export function ValidImageMimeType(mimetype){
     return ValidMimetypes.includes(mimetype)
 }
 
-export async function processEvidenceImage(file){
+export async function processEvidenceImage(file, disableResize=false){
     const { path,mimetype } = file
     const buffer=await readFile(path)
-    const resizedBuffer=await resizeImage(buffer)
+    const resizedBuffer= !disableResize ? await resizeImage(buffer) : buffer;
     const base64=ConvertBufferToBase64(resizedBuffer)
     const base64String=`data:${mimetype};base64,${base64}`
     await rm(path)

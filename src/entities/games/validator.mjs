@@ -5,6 +5,7 @@ import Games from "./model.mjs";
 const gameSchema = Joi.object({
     name:Joi.string().required(),
     publisher:Joi.string().required(),
+    genre:Joi.string().required(),
 });
 
 const GetGamesSchema = Joi.object({
