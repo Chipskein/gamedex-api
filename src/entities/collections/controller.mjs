@@ -133,7 +133,7 @@ export async function GetCollection(req,res){
                         include:{
                             model:Stars,
                             where:{
-                                id_user
+                                id_user:req.user.id
                             },
                             required:true
                         }
