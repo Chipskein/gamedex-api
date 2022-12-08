@@ -240,7 +240,6 @@ describe("RANKS",()=>{
         expect(items.length).toBeGreaterThan(0)
         items.map(
             (item,index)=>{
-                console.log(item)
                 expect(Number(item.rank)).toBeTypeOf('number')
                 expect(Number(item.games_qt)).toBeTypeOf('number')
                 expect(item.game_id).toBeTypeOf('number')

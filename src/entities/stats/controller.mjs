@@ -28,7 +28,6 @@ export async function GetMorePossesedItems(req,res){
         return res.status(HTTP_STATUS.OK).json({items})
     }
     catch(err){
-        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }

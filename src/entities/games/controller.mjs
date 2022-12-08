@@ -39,7 +39,6 @@ export async function CreateGame(req,res){
         return res.status(HTTP_STATUS.OK).json(game)
     }
     catch(err){
-        console.log(err)
         if(serverPath) await rm(serverPath)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
@@ -110,7 +109,6 @@ export async function GetGames(req,res){
         return res.status(HTTP_STATUS.OK).json({count,limit,offset,games})
     }
     catch(err){
-        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }

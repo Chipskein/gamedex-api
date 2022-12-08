@@ -42,7 +42,6 @@ export async function AddToCollection(req,res){
         return res.status(HTTP_STATUS.OK).json(item_collection)
     }
     catch(err){
-        console.log(err)
         if(file) await rm(file.path)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
@@ -79,7 +78,6 @@ export async function DeleteItem(req,res){
         return res.status(HTTP_STATUS.OK).json(resData)
     }
     catch(err){
-        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
@@ -146,7 +144,6 @@ export async function GetCollection(req,res){
         return res.status(HTTP_STATUS.OK).json({rows:games,limit,offset,count})
     }
     catch(err){
-        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
