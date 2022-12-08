@@ -113,6 +113,7 @@ export async function DeleteUser(req,res){
 }
 export async function GetUsers(req,res){
     try{
+        const { id:userId }=req.user;
         const isInvalid=await validateGetUsers(req.query)
         if(isInvalid){
             throw {
@@ -126,7 +127,17 @@ export async function GetUsers(req,res){
         if(!search) search="";
         limit=Number(limit)
         offset=Number(offset)
-        const {count,rows}=await Users.findAndCountAll({limit,offset,where:{active:true,name:{[Op.iLike]:`%${search}%`}}})
+        const {count,rows}=await Users.findAndCountAll({
+            limit,
+            offset,
+            where:{
+                active:true,
+                name:{[Op.iLike]:`%${search}%`},
+                id:{
+                    [Op.not]:userId
+                }
+            }
+        })
         const users=[];
         rows.map(({dataValues:user})=>{
             delete(user.password)
