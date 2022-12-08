@@ -25,7 +25,7 @@ export async function GetMoreStaredItems(){
             group by gc.id
         ) as tmp
         inner join games g on g.id=tmp.id_game
-        inner join users u on u.id=tmp.id_user
+        inner join users u on u.id=tmp.id_user and u.active is true
         where 
             tmp.rank <= 5
         order by tmp.rank
