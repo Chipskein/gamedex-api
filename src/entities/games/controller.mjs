@@ -19,7 +19,10 @@ export async function CreateGame(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        const InvalidFile = validateEvidenceImg(file)
+        let InvalidFile=false;
+        if(file){
+            InvalidFile = validateEvidenceImg(file)
+        }
         if(InvalidFile){
             throw {
                 status:HTTP_STATUS.BAD_REQUEST,

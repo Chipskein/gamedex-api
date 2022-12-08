@@ -104,9 +104,9 @@ const deleteCollection=[
     [{id_collection:999999999999},createJWT({email:'usertest3@gamedex.com',id:4}),HTTP_STATUS.BAD_REQUEST],
 ]
 describe.each(deleteCollection)('',async (body,token,statusCode)=>{
-    test('DELETE /stars',async()=>{
+    test('POST /stars/delete',async()=>{
         const res=await request(mock.app)
-            .delete('/stars')
+            .post('/stars/delete')
             .set('authorization',token)
             .send(body)
         ;

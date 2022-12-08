@@ -68,9 +68,10 @@ describe.each(AuthUserTable)('Body:%j expected Status Code:%d',(body,statusCode)
     })
 })
 const UpdateUserTable=[
-    [{name:"12"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.BAD_REQUEST],
+    [{name:"12"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.OK],
     [{name:"123",password:""},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.BAD_REQUEST],
     [{name:"123",password:"12"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.BAD_REQUEST],
+    [{password:"123456"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.OK],
     [{name:"alterando nome",password:"123456"},createJWT({id:1,email:"email@example.com"}),HTTP_STATUS.OK],
     [{name:"alterando nome",password:"123456"},createJWT({id:3,email:"email@example.com"}),HTTP_STATUS.UNAUTHORIZED],
     [{name:"alterando nome",password:"123456"},createJWT({id:1,email:"tokeninvalido@example.com"}),HTTP_STATUS.UNAUTHORIZED],
@@ -80,9 +81,7 @@ describe.each(UpdateUserTable)('Body:%j token:%s expected Status Code:%d',(body,
         const res=await request(mock.app).put('/users/').send(body).set('authorization',token);
         expect(res.statusCode).toBe(statusCode)
         if(res.statusCode==HTTP_STATUS.OK){
-            expect(res.body).toContain({
-                name: body.name,
-            })
+            if(body.name) expect(res.body).toContain({name: body.name});
             expect(res.body.password).toBeUndefined()
             expect(res.body.id).toBeDefined()
         }

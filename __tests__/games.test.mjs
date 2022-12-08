@@ -40,6 +40,7 @@ beforeAll(async ()=>{
 
 
 const CreateNewGame=[
+    [{name:"1",genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.OK],
     [{name:"1",genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
     [{},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',active:true}),HTTP_STATUS.FORBIDDEN],
     [{name:'FIFA 15',genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.OK],
