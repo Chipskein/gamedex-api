@@ -11,8 +11,8 @@ const authUserSchema= Joi.object({
     email: Joi.string().email().required(),
 });
 const updateUserSchema= Joi.object({
-    password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
-    name: Joi.string().min(3).max(30),
+    password: Joi.string().allow(null,false).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    name: Joi.string().allow(null,false).max(30),
 });
 const GetUserSchema= Joi.object({
     id:Joi.number().required()
