@@ -5,9 +5,12 @@ import Stars from "../stars/model.mjs"
 import { validateCreateGame,validateGetGames} from "./validator.mjs"
 import { Sequelize } from "sequelize"
 import { validateEvidenceImg } from "../collections/validator.mjs"
-import { processEvidenceImage } from "../../utils/image.mjs"
+import { uploadImage } from "../../utils/image.mjs"
+import { rm } from 'fs/promises'
 
 export async function CreateGame(req,res){
+    const file = req?.file;
+    const serverPath =file?.path
     try{
         const isInvalid=await validateCreateGame(req.body)
         if(isInvalid){
@@ -16,8 +19,6 @@ export async function CreateGame(req,res){
                 message:isInvalid.details[0].message
             }
         }
-        const file = req.file;
-
         const InvalidFile = validateEvidenceImg(file)
         if(InvalidFile){
             throw {
@@ -25,8 +26,10 @@ export async function CreateGame(req,res){
                 message:InvalidFile.details[0].message
             }
         }
-        
-        const game_img = await processEvidenceImage(file, true)
+        let game_img=null
+        if(serverPath){
+            game_img=await uploadImage(file)
+        };
         const { id: id_user } = req.user
         const { name, publisher, genre } = req.body
         const { dataValues: game } = await Games.create({ name, publisher, id_user, genre, img: game_img })
@@ -34,6 +37,7 @@ export async function CreateGame(req,res){
     }
     catch(err){
         console.log(err)
+        if(serverPath) await rm(serverPath)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
