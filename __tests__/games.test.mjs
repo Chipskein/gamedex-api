@@ -40,10 +40,10 @@ beforeAll(async ()=>{
 
 
 const CreateNewGame=[
-    [{name:1,publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
+    [{name:"1",genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
     [{},createJWT({id:2,email:'usertestNOT_data_master@gamedex.com',active:true}),HTTP_STATUS.FORBIDDEN],
-    [{name:'FIFA 15',publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.OK],
-    [{name:'FIFA 15',publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
+    [{name:'FIFA 15',genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.OK],
+    [{name:'FIFA 15',genre:"teste",publisher:'EA GAMES'},createJWT({id:1,email:'usertest_data_master@gamedex.com',active:true}),HTTP_STATUS.BAD_REQUEST],
 ]
 describe.each(CreateNewGame)('',async (body,token,statusCode)=>{
     test('POST /games',async()=>{
@@ -53,6 +53,7 @@ describe.each(CreateNewGame)('',async (body,token,statusCode)=>{
             expect(res.body).contain({
                 name:body.name,
                 publisher:body.publisher,
+                genre:body.genre,
                 id_user:1
             })
         }

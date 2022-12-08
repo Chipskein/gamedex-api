@@ -3,5 +3,5 @@ import { verifyToken } from "../../middlewares/auth.mjs";
 import { StarItemInCollection,UnStarItemInCollection } from './controller.mjs'
 let RouterStars=Router()
 RouterStars.post('/',verifyToken,StarItemInCollection);
-RouterStars.delete('/',verifyToken,UnStarItemInCollection);
+RouterStars.post('/delete',verifyToken,UnStarItemInCollection);
 export default RouterStars;

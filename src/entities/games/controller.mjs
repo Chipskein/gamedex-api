@@ -33,6 +33,7 @@ export async function CreateGame(req,res){
         return res.status(HTTP_STATUS.OK).json(game)
     }
     catch(err){
+        console.log(err)
         let statusCode=err.status || HTTP_STATUS.INTERNAL_ERROR
         return res.status(statusCode).json({ msg: err.message})
     }
