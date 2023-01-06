@@ -2,6 +2,7 @@
 
 **Trabalho 4o Bimestre**
 
+
 Prezados, chegamos ao último trabalho do curso Integrado de Informática para Internet do Campus Rio Grande, turma de 2022. Este trabalho será realizado em conjunto entre as disciplinas de Desenvolvimento de Sistemas I e Desenvolvimento de Sistemas II.
 
 O objetivo deste trabalho é a implementação de dois projetos, um de backend (DSII) e outro de frontend (DSI). Os projetos irão se comunicar através de chamadas HTTP e, em conjunto, simularão a chamada AnyDex, uma PokeDex personalizada de acordo com o tema escolhido.
